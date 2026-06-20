@@ -1,0 +1,1460 @@
+@import "tailwindcss" source(none);
+@import "tw-animate-css";
+
+@source ".";
+@source "../components";
+@source "../content";
+@source "../lib";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-brand: var(--brand-primary);
+  --color-brand-secondary: var(--brand-secondary);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-bg: var(--brand-bg);
+  --color-brand-fg: var(--brand-fg);
+  --color-brand-muted: var(--brand-muted);
+  --color-brand-muted-fg: var(--brand-muted-fg);
+  --color-brand-border: var(--brand-border);
+  --radius-brand: var(--brand-radius);
+}
+
+:root {
+  /* ---- WEDDING BRAND TOKENS ---- */
+  --brand-primary: oklch(0.76 0.10 82);       /* warm champagne gold */
+  --brand-secondary: oklch(0.30 0.02 58);     /* deep warm ink */
+  --brand-accent: oklch(0.88 0.04 18);        /* soft blush */
+  --brand-bg: oklch(0.99 0.006 84);           /* warm near-white */
+  --brand-fg: oklch(0.22 0.01 58);            /* rich warm black */
+  --brand-muted: oklch(0.96 0.012 83);        /* warm pearl */
+  --brand-muted-fg: oklch(0.54 0.01 58);      /* muted warm gray */
+  --brand-border: oklch(0.91 0.010 83);       /* warm light border */
+
+  /* Extended palette */
+  --brand-gold-soft: oklch(0.93 0.04 82);     /* very light champagne */
+  --brand-blush: oklch(0.95 0.018 15);        /* whisper blush */
+
+  /* radius / shadow / glass */
+  --brand-radius: 0.875rem;
+  --brand-shadow-soft: 0 1px 3px oklch(0 0 0 / 5%), 0 6px 20px oklch(0 0 0 / 7%);
+  --brand-shadow-warm: 0 2px 8px oklch(0.76 0.10 82 / 10%), 0 8px 32px oklch(0 0 0 / 6%);
+  --brand-shadow-elevated: 0 4px 16px oklch(0 0 0 / 7%), 0 20px 60px oklch(0 0 0 / 8%);
+  --brand-shadow-gold: 0 0 0 1px oklch(0.76 0.10 82 / 18%), 0 4px 16px oklch(0.76 0.10 82 / 12%);
+
+  /* Atmospheric gradients */
+  --hero-gradient: radial-gradient(
+    ellipse 110% 80% at 50% -5%,
+    oklch(0.93 0.05 80) 0%,
+    oklch(0.96 0.03 82) 40%,
+    oklch(0.99 0.006 84) 100%
+  );
+  --cta-gradient: linear-gradient(
+    135deg,
+    oklch(0.70 0.11 80) 0%,
+    oklch(0.76 0.10 82) 45%,
+    oklch(0.68 0.09 68) 100%
+  );
+  --section-warm: linear-gradient(180deg, oklch(0.99 0.006 84) 0%, oklch(0.97 0.012 82) 100%);
+
+  /* Glass */
+  --glass-blur: 20px;
+  --glass-tint: 255 255 255;
+  --glass-tint-opacity: 0.14;
+  --glass-border-opacity: 0.22;
+
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.55 0.15 240);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.55 0.15 240);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    overflow-y: scroll;
+    /* Central fix for the sticky/floating PublicHeader (app/(site)/layout.tsx →
+       components/site/PublicHeader.tsx, `sticky top-0 z-50`). Without this,
+       any in-page anchor jump (e.g. "#service-menu", "#catalog-flipbook") or
+       scrollIntoView() lands its target flush against the viewport top and the
+       heading is hidden behind the header. scroll-padding-top applies this
+       offset to every anchor/scroll target site-wide, so individual sections
+       don't need their own scroll-margin-top patched in. */
+    scroll-padding-top: 6.5rem;
+  }
+}
+
+/* ===================================================
+   LUXURY WEDDING HALL — COMPONENT REFINEMENTS
+   (Additive — public marketing only)
+   =================================================== */
+
+/* Hero glass panel — higher opacity for light gradient bg */
+.hero-glass {
+  background: rgba(255, 255, 255, 0.80) !important;
+  border-color: rgba(255, 255, 255, 0.55) !important;
+  box-shadow:
+    0 8px 40px -8px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(255, 255, 255, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    var(--brand-shadow-soft);
+}
+
+/* Brand button — premium radius + gold glow */
+[data-variant="brand"] {
+  border-radius: var(--brand-radius) !important;
+  box-shadow: var(--brand-shadow-gold);
+  letter-spacing: 0.01em;
+}
+[data-variant="brand"]:hover {
+  box-shadow:
+    0 0 0 1px oklch(0.76 0.10 82 / 28%),
+    0 6px 24px oklch(0.76 0.10 82 / 18%);
+}
+
+/* Decorative orb — blurred radial blob */
+.brand-orb {
+  border-radius: 50%;
+  filter: blur(72px);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* GlassPanel — inner top-highlight for premium depth */
+[data-glass] {
+  box-shadow:
+    var(--brand-shadow-soft),
+    inset 0 1px 0 rgba(255, 255, 255, 0.52);
+}
+
+/* Reduced-motion: suppress slide-in animations */
+@media (prefers-reduced-motion: reduce) {
+  .animate-in {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ───────── Zero-loop hero card arc, inspired by the attached flip-card concept ───────── */
+.hero-kicker,
+.hero-secondary-cta {
+  backdrop-filter: none;
+}
+
+.hero-arc-stage {
+  contain: layout;
+}
+
+.hero-arc-backdrop {
+  position: absolute;
+  inset: 8% 10% 10% 7%;
+  border: 1px solid oklch(0.76 0.10 82 / 0.18);
+  border-radius: 14px;
+  background:
+    linear-gradient(135deg, oklch(1 0 0 / 0.52), oklch(0.95 0.018 82 / 0.30)),
+    repeating-linear-gradient(112deg, oklch(0.76 0.10 82 / 0.08) 0 1px, transparent 1px 18px);
+  box-shadow:
+    0 28px 70px oklch(0.30 0.035 68 / 0.10),
+    inset 0 1px 0 oklch(1 0 0 / 0.62);
+  transform: rotate(-2deg);
+}
+
+.hero-feature-card {
+  position: absolute;
+  left: 4%;
+  top: 10%;
+  width: 59%;
+  height: 60%;
+  overflow: hidden;
+  border: 1px solid oklch(1 0 0 / 0.76);
+  border-radius: 14px;
+  background: oklch(0.96 0.012 82);
+  box-shadow:
+    0 24px 52px oklch(0.22 0.026 58 / 0.16),
+    0 0 0 1px oklch(0.78 0.08 80 / 0.14);
+  transform: rotate(-3.5deg);
+}
+
+.hero-feature-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 56%, oklch(0.18 0.025 58 / 0.36));
+  pointer-events: none;
+}
+
+.hero-feature-caption {
+  position: absolute;
+  inset-inline: 1rem;
+  bottom: 1rem;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-feature-caption span {
+  border: 1px solid oklch(1 0 0 / 0.52);
+  border-radius: 999px;
+  background: oklch(0.99 0.006 84 / 0.82);
+  color: oklch(0.24 0.03 58);
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 0.45rem 0.8rem;
+}
+
+.hero-arc-track {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-arc-card {
+  position: absolute;
+  z-index: 4;
+  width: clamp(4.4rem, 7vw, 5.8rem);
+  height: clamp(6rem, 9.2vw, 8rem);
+  overflow: hidden;
+  pointer-events: none;
+  border: 1px solid oklch(1 0 0 / 0.78);
+  border-radius: 12px;
+  background: oklch(0.96 0.012 82);
+  box-shadow:
+    0 14px 32px oklch(0.22 0.026 58 / 0.14),
+    0 0 0 1px oklch(0.78 0.08 80 / 0.12);
+  backface-visibility: hidden;
+  transform-origin: 50% 50%;
+  will-change: auto;
+}
+
+.hero-arc-card--scrolling {
+  will-change: transform, opacity;
+}
+
+.hero-arc-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, oklch(1 0 0 / 0.10), oklch(0.15 0.03 58 / 0.12));
+  pointer-events: none;
+}
+
+.hero-arc-card-one {
+  left: 39%;
+  top: 1%;
+  transform: rotate(10deg);
+}
+
+.hero-arc-card-two {
+  right: 8%;
+  top: 18%;
+  transform: rotate(18deg);
+}
+
+.hero-arc-card-three {
+  right: 1%;
+  top: 46%;
+  transform: rotate(4deg);
+}
+
+.hero-arc-card-four {
+  right: 12%;
+  bottom: 31%;
+  transform: rotate(-9deg);
+}
+
+.hero-arc-card-five {
+  left: 42%;
+  bottom: 27%;
+  transform: rotate(-17deg);
+}
+
+@media (max-width: 767px) {
+  .hero-arc-backdrop {
+    inset: 10% 8% 8% 8%;
+  }
+
+  .hero-feature-card {
+    left: 4%;
+    top: 8%;
+    width: 66%;
+    height: 68%;
+  }
+
+  .hero-feature-caption {
+    display: none;
+  }
+
+  .hero-arc-card {
+    width: 4.45rem;
+    height: 6rem;
+    border-radius: 10px;
+  }
+
+  .hero-arc-card-one {
+    left: 44%;
+    top: 2%;
+  }
+
+  .hero-arc-card-two {
+    right: 4%;
+    top: 23%;
+  }
+
+  .hero-arc-card-three {
+    right: 0;
+    top: 53%;
+  }
+
+  .hero-arc-card-four {
+    right: 18%;
+    bottom: 13%;
+  }
+
+  .hero-arc-card-five {
+    left: 36%;
+    bottom: 8%;
+  }
+}
+
+/* ───────── Body font utilities (avoids hydration mismatch from inline style) ───────── */
+.font-body-ar {
+  font-family: var(--font-body-ar), "Segoe UI", Tahoma, Arial, sans-serif;
+}
+.font-body-latin {
+  font-family: var(--font-geist-sans), "Segoe UI", Arial, sans-serif;
+}
+
+/* ───────── Arabic typography safety net ─────────────────────────────────
+   Letter-spacing/uppercase are Latin-script conventions: wide tracking
+   breaks Arabic letter joining (the script is cursive) and uppercase has
+   no Arabic equivalent. Neutralize both for Arabic content site-wide, and
+   guarantee normal, word-aware breaking instead of mid-word breaks. ───── */
+:lang(ar) {
+  text-transform: none;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+:lang(ar) [class*="tracking-"] {
+  letter-spacing: normal;
+}
+:lang(ar) .hero-scroll-hint-label {
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+/* ───────── Hero motion layer: lightweight, CSS-first enhancements ───────── */
+.hero-gradient-bg {
+  isolation: isolate;
+  background:
+    linear-gradient(118deg, transparent 0 28%, oklch(0.76 0.10 82 / 0.14) 28% 29%, transparent 29% 100%),
+    linear-gradient(62deg, transparent 0 64%, oklch(0.50 0.07 145 / 0.10) 64% 65%, transparent 65% 100%),
+    radial-gradient(ellipse 78% 48% at 18% 16%, oklch(0.96 0.05 85 / 0.72) 0%, transparent 70%),
+    radial-gradient(ellipse 58% 40% at 92% 74%, oklch(0.95 0.03 22 / 0.42) 0%, transparent 72%),
+    linear-gradient(
+      135deg,
+      oklch(0.99 0.006 84) 0%,
+      oklch(0.95 0.025 83) 30%,
+      oklch(0.97 0.018 24) 58%,
+      oklch(0.95 0.018 145) 100%
+    );
+  background-size: 160% 160%;
+}
+
+.hero-gradient-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(110deg, transparent 0%, oklch(1 0 0 / 0.34) 44%, transparent 62%),
+    repeating-linear-gradient(
+      115deg,
+      oklch(0.76 0.10 82 / 0.09) 0 1px,
+      transparent 1px 13px
+    );
+  opacity: 0.74;
+  transform: translate3d(0, 0, 0);
+}
+
+.hero-awards::after {
+  content: "";
+  position: absolute;
+  left: -8%;
+  top: 8%;
+  z-index: 0;
+  width: 116%;
+  height: 76%;
+  pointer-events: none;
+  background:
+    linear-gradient(100deg, transparent 0%, oklch(0.76 0.10 82 / 0.16) 45%, transparent 72%),
+    linear-gradient(100deg, transparent 0%, oklch(0.21 0.03 58 / 0.08) 52%, transparent 78%);
+  clip-path: polygon(0 10%, 100% 0, 100% 12%, 0 28%, 0 64%, 100% 42%, 100% 52%, 0 80%);
+  mix-blend-mode: multiply;
+  opacity: 0.58;
+}
+
+@keyframes heroGradientShift {
+  0%,
+  100% {
+    background-position: 0% 48%;
+  }
+  50% {
+    background-position: 100% 52%;
+  }
+}
+
+@keyframes heroLightSweep {
+  0% {
+    transform: translate3d(-10%, 0, 0);
+    opacity: 0.42;
+  }
+  100% {
+    transform: translate3d(8%, 0, 0);
+    opacity: 0.66;
+  }
+}
+
+@keyframes heroRibbonShift {
+  from {
+    transform: translate3d(-2%, 0, 0) skewY(-1deg);
+  }
+  to {
+    transform: translate3d(2%, 1%, 0) skewY(1deg);
+  }
+}
+
+.hero-kicker {
+  backdrop-filter: blur(18px);
+  transform-origin: center;
+}
+
+.hero-title-premium {
+  color: oklch(0.17 0.025 58);
+  text-shadow:
+    0 1px 0 oklch(1 0 0 / 0.60),
+    0 18px 32px oklch(0.22 0.03 58 / 0.13);
+}
+
+@keyframes heroTitleSheen {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes heroBadgeReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.hero-divider {
+  transform-origin: center;
+}
+
+@keyframes heroDividerReveal {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+.hero-word {
+  display: inline-block;
+  opacity: 1;
+  transform: none;
+  transform-origin: 50% 100%;
+}
+
+@keyframes heroWordReveal {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotateX(0deg);
+  }
+}
+
+@keyframes heroTextReveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.magnetic-button {
+  will-change: auto;
+}
+
+.hero-primary-cta {
+  min-width: 11rem;
+  box-shadow:
+    0 0 0 1px oklch(0.74 0.12 76 / 0.42),
+    0 18px 42px oklch(0.70 0.12 76 / 0.34),
+    inset 0 1px 0 oklch(1 0 0 / 0.44) !important;
+}
+
+.hero-secondary-cta {
+  min-width: 11rem;
+  backdrop-filter: blur(12px);
+}
+
+.hero-parallax-image {
+  will-change: auto;
+}
+
+.hero-visual-stage {
+  perspective: 1100px;
+  transform-style: preserve-3d;
+}
+
+.hero-stage-ribbon {
+  position: absolute;
+  pointer-events: none;
+  border: 1px solid oklch(0.76 0.10 82 / 0.20);
+  background: linear-gradient(90deg, transparent, oklch(1 0 0 / 0.32), transparent);
+  box-shadow: 0 22px 60px oklch(0.32 0.04 58 / 0.08);
+}
+
+.hero-stage-ribbon-one {
+  left: 4%;
+  top: 3%;
+  width: 74%;
+  height: 36%;
+  transform: rotate(-7deg) skewX(-10deg);
+}
+
+.hero-stage-ribbon-two {
+  right: 4%;
+  bottom: 4%;
+  width: 64%;
+  height: 28%;
+  transform: rotate(9deg) skewX(8deg);
+}
+
+.hero-visual-plate {
+  backdrop-filter: blur(16px);
+  transform: translate3d(0, 0, -28px) rotate(-1deg);
+}
+
+.hero-photo-card {
+  will-change: auto;
+  transform-style: preserve-3d;
+}
+
+.hero-photo-main {
+  transform: rotate(-3.2deg);
+}
+
+.hero-photo-secondary {
+  transform: translate3d(0, 0, 38px) rotate(4.5deg);
+}
+
+@keyframes heroPlateFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, -28px) rotate(-1deg);
+  }
+  50% {
+    transform: translate3d(0, -10px, -28px) rotate(1deg);
+  }
+}
+
+@keyframes heroMainPhotoFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-3.2deg);
+  }
+  50% {
+    transform: translate3d(0, -16px, 22px) rotate(-1.4deg);
+  }
+}
+
+@keyframes heroSecondaryPhotoFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 38px) rotate(4.5deg);
+  }
+  50% {
+    transform: translate3d(0, 14px, 58px) rotate(2.4deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-gradient-bg,
+  .hero-gradient-bg::before,
+  .hero-awards::after,
+  .hero-badge,
+  .hero-divider,
+  .hero-word,
+  .hero-subtitle,
+  .hero-cta,
+  .hero-title-premium,
+  .hero-visual-plate,
+  .hero-photo-main,
+  .hero-photo-secondary {
+    animation: none !important;
+  }
+
+  .hero-badge,
+  .hero-divider,
+  .hero-word,
+  .hero-subtitle,
+  .hero-cta {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .magnetic-button,
+  .hero-parallax-image,
+  .hero-visual-plate,
+  .hero-photo-main,
+  .hero-photo-secondary {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+.hero-awards {
+  overflow: visible;
+}
+
+.hero-kicker,
+.hero-secondary-cta {
+  backdrop-filter: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CINEMATIC HOMEPAGE — MOTION SYSTEM
+   All animation classes for the luxury homepage journey.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Hero staggered entrance (CSS-only, no JS required) ───── */
+@keyframes heroEntranceSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroEntranceFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.hero-entrance-kicker {
+  opacity: 0;
+  animation: heroEntranceSlideUp 0.60s cubic-bezier(0.22, 1, 0.36, 1) 0.10s forwards;
+}
+
+.hero-entrance-title {
+  opacity: 0;
+  animation: heroEntranceSlideUp 0.70s cubic-bezier(0.22, 1, 0.36, 1) 0.24s forwards;
+}
+
+.hero-entrance-divider {
+  opacity: 0;
+  animation: heroEntranceFadeIn 0.50s ease 0.46s forwards;
+}
+
+.hero-entrance-subtitle {
+  opacity: 0;
+  animation: heroEntranceSlideUp 0.60s cubic-bezier(0.22, 1, 0.36, 1) 0.54s forwards;
+}
+
+.hero-entrance-ctas {
+  opacity: 0;
+  animation: heroEntranceSlideUp 0.60s cubic-bezier(0.22, 1, 0.36, 1) 0.68s forwards;
+}
+
+.hero-entrance-stage {
+  opacity: 0;
+  animation: heroEntranceFadeIn 0.85s ease 0.16s forwards;
+}
+
+/* ── Feature card — gentle infinite breathing float ────────── */
+@keyframes heroFeatureCardFloat {
+  0%, 100% { transform: rotate(-3.5deg) translateY(0px); }
+  50%       { transform: rotate(-3.5deg) translateY(-7px); }
+}
+
+.hero-feature-card {
+  animation: heroFeatureCardFloat 6.8s ease-in-out infinite;
+}
+
+/* ── Section atmospheric connector ─────────────────────────── */
+.section-connector {
+  position: absolute;
+  inset-x: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section-connector--top {
+  top: 0;
+  height: 5rem;
+  background: linear-gradient(
+    to bottom,
+    oklch(0.99 0.006 84 / 0.9) 0%,
+    transparent 100%
+  );
+}
+
+.section-connector--bottom {
+  bottom: 0;
+  height: 5rem;
+  background: linear-gradient(
+    to top,
+    oklch(0.99 0.006 84 / 0.9) 0%,
+    transparent 100%
+  );
+}
+
+/* ── Testimonials initial hidden state ──────────────────────── */
+.testimonials-hidden {
+  opacity: 0;
+  transform: translateY(34px) scale(0.975);
+}
+
+/* ── Hero scroll hint — quiet invitation to continue ────────── */
+.hero-scroll-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  pointer-events: none;
+  opacity: 0;
+  animation: heroEntranceFadeIn 0.9s ease 1.5s forwards;
+}
+
+.hero-scroll-hint-label {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: oklch(0.52 0.06 76);
+}
+
+.hero-scroll-hint-line {
+  position: relative;
+  width: 1px;
+  height: 2.5rem;
+  overflow: hidden;
+  background: linear-gradient(to bottom, oklch(0.76 0.10 82 / 0.5), transparent);
+}
+
+.hero-scroll-hint-line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -1.5px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: oklch(0.70 0.11 78);
+  opacity: 0;
+  animation: heroHintDrop 2.6s ease-in-out 2.2s infinite;
+}
+
+@keyframes heroHintDrop {
+  0%   { transform: translateY(-4px); opacity: 0; }
+  16%  { opacity: 1; }
+  72%  { opacity: 1; }
+  100% { transform: translateY(2.5rem); opacity: 0; }
+}
+
+/* ── Brand CTA band utilities (referenced by CtaBand & co.) ──── */
+@keyframes brandRevealUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-reveal-up {
+  opacity: 0;
+  animation: brandRevealUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes brandFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+
+.animate-float {
+  animation: brandFloat 11s ease-in-out infinite;
+}
+
+@keyframes brandPetalDrift {
+  0%, 100% { transform: translate(0, 0); opacity: 0.5; }
+  50%      { transform: translate(4px, -12px); opacity: 0.95; }
+}
+
+.animate-petal {
+  animation: brandPetalDrift 9s ease-in-out infinite;
+}
+
+.orbit-ring {
+  border: 1px solid;
+  border-radius: 50%;
+}
+
+@keyframes spin-slow {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 30s linear infinite;
+}
+
+.noise-overlay {
+  position: relative;
+}
+
+.noise-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.045;
+  background: repeating-linear-gradient(
+    0deg,
+    oklch(1 0 0 / 0.55) 0 1px,
+    transparent 1px 3px
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HOME VISUAL JOURNEY — scene system
+   Hero cinematic scene · champagne path · per-section atmospheres.
+   Pure gradients/borders + one reused hero image. No new media.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── HERO SCENE ─────────────────────────────────────────────── */
+.hero-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Atmospheric photo backdrop — same image/size as the feature card,
+   so the browser reuses the cached asset (no extra payload). */
+.hero-scene-img {
+  position: absolute;
+  inset: -8% 0 0 0;
+  opacity: 0.20;
+  transform: scale(1.06);
+}
+
+.hero-scene-wash {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, oklch(0.97 0.025 82 / 0.30) 0%, transparent 30%, oklch(0.99 0.006 84 / 0.55) 72%, oklch(0.99 0.006 84 / 0.96) 100%),
+    radial-gradient(ellipse 90% 70% at 50% 0%, transparent 0%, oklch(0.99 0.006 84 / 0.45) 78%),
+    linear-gradient(90deg, oklch(0.99 0.006 84 / 0.72) 0%, transparent 22% 78%, oklch(0.99 0.006 84 / 0.72) 100%);
+}
+
+/* Palace arches behind the visual stage (logical end side, RTL-aware) */
+.hero-scene-arch {
+  position: absolute;
+  bottom: -6%;
+  inset-inline-end: 4%;
+  width: clamp(20rem, 34vw, 33rem);
+  height: clamp(26rem, 46vw, 44rem);
+  border: 1.5px solid oklch(0.74 0.10 80 / 0.40);
+  border-bottom: none;
+  border-radius: 100rem 100rem 0 0;
+  background: linear-gradient(180deg, oklch(0.93 0.05 81 / 0.34), transparent 62%);
+  box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.5);
+  animation: heroArchIn 1.3s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+}
+
+.hero-scene-arch--far {
+  inset-inline-end: 19%;
+  bottom: -10%;
+  width: clamp(15rem, 25vw, 24rem);
+  height: clamp(20rem, 36vw, 34rem);
+  border-color: oklch(0.76 0.09 80 / 0.22);
+  background: linear-gradient(180deg, oklch(0.94 0.04 81 / 0.20), transparent 56%);
+  animation-delay: 0.45s;
+}
+
+@keyframes heroArchIn {
+  from { opacity: 0; transform: translateY(34px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Ceremonial light beams falling from above */
+.hero-scene-beam {
+  position: absolute;
+  top: -6%;
+  width: clamp(7rem, 11vw, 11rem);
+  height: 74%;
+  background: linear-gradient(180deg, oklch(0.90 0.07 82 / 0.34), oklch(0.90 0.07 82 / 0.07) 58%, transparent);
+  clip-path: polygon(38% 0, 62% 0, 100% 100%, 0 100%);
+}
+
+.hero-scene-beam--one {
+  inset-inline-end: 14%;
+  transform: skewX(-7deg);
+}
+
+.hero-scene-beam--two {
+  inset-inline-end: 33%;
+  transform: skewX(6deg);
+  opacity: 0.62;
+  height: 58%;
+}
+
+/* Gold dust */
+.hero-scene-particles span {
+  position: absolute;
+  border-radius: 50%;
+  background: oklch(0.82 0.10 82 / 0.9);
+  box-shadow: 0 0 10px oklch(0.85 0.09 82 / 0.65);
+}
+
+/* Filigree corners */
+.hero-corner {
+  position: absolute;
+  top: 1.4rem;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-top: 1.5px solid oklch(0.74 0.10 80 / 0.55);
+}
+
+.hero-corner--start {
+  inset-inline-start: 1.4rem;
+  border-inline-start: 1.5px solid oklch(0.74 0.10 80 / 0.55);
+  border-start-start-radius: 1rem;
+}
+
+.hero-corner--end {
+  inset-inline-end: 1.4rem;
+  border-inline-end: 1.5px solid oklch(0.74 0.10 80 / 0.55);
+  border-start-end-radius: 1rem;
+}
+
+/* Hand-over into the first scene */
+.hero-scene-bottomfade {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 7rem;
+  background: linear-gradient(to bottom, transparent, oklch(0.97 0.018 82 / 0.85));
+}
+
+/* Intentional CTA platform */
+.hero-cta-aura {
+  position: relative;
+}
+
+.hero-cta-aura::before {
+  content: "";
+  position: absolute;
+  inset: -1.4rem -2.2rem;
+  z-index: -1;
+  border-radius: 2rem;
+  background: radial-gradient(ellipse 80% 100% at 50% 50%, oklch(0.92 0.055 81 / 0.55), transparent 75%);
+}
+
+.hero-cta-aura::after {
+  content: "";
+  position: absolute;
+  top: -0.85rem;
+  left: 50%;
+  width: 6.5rem;
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(to right, transparent, oklch(0.74 0.10 80 / 0.6), transparent);
+}
+
+/* ── CHAMPAGNE JOURNEY PATH ─────────────────────────────────── */
+.journey-gap {
+  position: relative;
+  z-index: 5;
+  height: clamp(8rem, 13vw, 11rem);
+  pointer-events: none;
+}
+
+.journey-wash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 56% 100% at 50% 50%, oklch(0.93 0.05 80 / 0.55), transparent 72%);
+}
+
+.journey-line {
+  position: absolute;
+  top: 0;
+  bottom: 2.6rem;
+  left: 50%;
+  width: 2px;
+  margin-left: -1px;
+  transform-origin: top center;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    oklch(0.72 0.11 80 / 0.9) 26%,
+    oklch(0.72 0.11 80 / 0.9) 82%,
+    transparent
+  );
+}
+
+.journey-node {
+  position: absolute;
+  bottom: 1.7rem;
+  left: 50%;
+  width: 11px;
+  height: 11px;
+  margin-left: -5.5px;
+  rotate: 45deg;
+  border: 1.5px solid oklch(0.70 0.11 79 / 0.95);
+  background: oklch(0.97 0.025 83);
+  box-shadow: 0 0 16px oklch(0.78 0.10 82 / 0.6);
+}
+
+.journey-chevron {
+  position: absolute;
+  bottom: 0.45rem;
+  left: 50%;
+  width: 13px;
+  height: 13px;
+  margin-left: -6.5px;
+  rotate: -45deg;
+  border-inline-start: 2px solid oklch(0.70 0.10 79 / 0.75);
+  border-bottom: 2px solid oklch(0.70 0.10 79 / 0.75);
+}
+
+/* ── SCENE: STORIES — the cinema ────────────────────────────── */
+.scene-stories {
+  background:
+    radial-gradient(ellipse 92% 56% at 50% -6%, oklch(0.93 0.045 81 / 0.65) 0%, transparent 62%),
+    linear-gradient(180deg, oklch(0.985 0.010 84) 0%, oklch(0.968 0.020 82) 46%, oklch(0.985 0.008 84) 100%);
+}
+
+.scene-stories::before,
+.scene-stories::after {
+  content: "";
+  position: absolute;
+  bottom: 8%;
+  width: clamp(9rem, 14vw, 14rem);
+  height: clamp(20rem, 34vw, 30rem);
+  border: 1.5px solid oklch(0.76 0.09 80 / 0.26);
+  border-bottom: none;
+  pointer-events: none;
+}
+
+.scene-stories::before {
+  left: -4.5rem;
+  border-radius: 0 100rem 0 0;
+  border-left: none;
+}
+
+.scene-stories::after {
+  right: -4.5rem;
+  border-radius: 100rem 0 0 0;
+  border-right: none;
+}
+
+.scene-header-arch {
+  display: block;
+  width: 4rem;
+  height: 2rem;
+  margin: 0 auto 0.9rem;
+  border: 1.5px solid oklch(0.74 0.10 80 / 0.55);
+  border-bottom: none;
+  border-radius: 100rem 100rem 0 0;
+  background: linear-gradient(180deg, oklch(0.92 0.055 81 / 0.5), transparent 80%);
+}
+
+/* Cinema framing around the video shell */
+.stories-cinema-backdrop {
+  position: absolute;
+  inset: -5% 2% 0%;
+  z-index: 0;
+  border: 1px solid oklch(0.76 0.10 82 / 0.30);
+  border-radius: 1.8rem;
+  background:
+    linear-gradient(135deg, oklch(1 0 0 / 0.55), oklch(0.95 0.02 82 / 0.30)),
+    repeating-linear-gradient(112deg, oklch(0.76 0.10 82 / 0.07) 0 1px, transparent 1px 17px);
+  box-shadow: 0 30px 70px oklch(0.30 0.035 68 / 0.12), inset 0 1px 0 oklch(1 0 0 / 0.62);
+  transform: rotate(-1.4deg);
+  pointer-events: none;
+}
+
+.stories-cinema-beam {
+  position: absolute;
+  top: -16%;
+  z-index: 1;
+  width: clamp(6rem, 10vw, 10rem);
+  height: 62%;
+  background: linear-gradient(180deg, oklch(0.90 0.07 82 / 0.4), transparent 80%);
+  clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%);
+  pointer-events: none;
+}
+
+.stories-cinema-beam--l {
+  left: 7%;
+  transform: rotate(10deg);
+}
+
+.stories-cinema-beam--r {
+  right: 7%;
+  transform: rotate(-10deg);
+}
+
+.stories-cinema-reflection {
+  position: relative;
+  z-index: 1;
+  width: min(86%, 44rem);
+  height: 2.6rem;
+  margin-top: 0.9rem;
+  border-radius: 50%;
+  background: radial-gradient(ellipse 60% 90% at 50% 0%, oklch(0.55 0.07 75 / 0.22), transparent 70%);
+  pointer-events: none;
+}
+
+/* Phone environment */
+.stories-reels-phone-wrap {
+  position: relative;
+}
+
+.stories-reels-phone-wrap::before {
+  content: "";
+  position: absolute;
+  bottom: 4%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 84%;
+  height: 92%;
+  border: 1.5px solid oklch(0.75 0.10 80 / 0.34);
+  border-bottom: none;
+  border-radius: 100rem 100rem 0 0;
+  background: linear-gradient(180deg, oklch(0.93 0.05 81 / 0.4), transparent 64%);
+  pointer-events: none;
+}
+
+.stories-reels-phone-wrap::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 76%;
+  height: 30%;
+  background: radial-gradient(ellipse at 50% 100%, oklch(0.85 0.08 80 / 0.5), transparent 70%);
+  pointer-events: none;
+}
+
+/* ── SCENE: CATALOG — the premium object reveal ─────────────── */
+.scene-catalog {
+  background:
+    radial-gradient(ellipse 46% 38% at 50% 4%, oklch(0.92 0.055 81 / 0.6) 0%, transparent 70%),
+    linear-gradient(180deg, oklch(0.985 0.008 84) 0%, oklch(0.962 0.024 81) 34%, oklch(0.955 0.028 80) 58%, oklch(0.985 0.008 84) 100%);
+}
+
+.scene-catalog::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(20rem, 42vw, 42rem);
+  height: 56%;
+  background: linear-gradient(180deg, oklch(0.90 0.07 82 / 0.3), transparent 78%);
+  clip-path: polygon(44% 0, 56% 0, 100% 100%, 0 100%);
+  pointer-events: none;
+}
+
+.scene-catalog::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(oklch(0.70 0.09 78 / 0.075) 1px, transparent 1px);
+  background-size: 26px 26px;
+  pointer-events: none;
+}
+
+.catalog-stage-backdrop {
+  position: absolute;
+  inset: 4% -1% 2%;
+  z-index: 0;
+  border: 1px solid oklch(0.76 0.10 82 / 0.26);
+  border-radius: 2rem;
+  background:
+    linear-gradient(150deg, oklch(1 0 0 / 0.5), oklch(0.95 0.022 82 / 0.26)),
+    repeating-linear-gradient(112deg, oklch(0.76 0.10 82 / 0.06) 0 1px, transparent 1px 19px);
+  box-shadow: 0 34px 80px oklch(0.30 0.035 68 / 0.13), inset 0 1px 0 oklch(1 0 0 / 0.6);
+  transform: rotate(1.3deg);
+  pointer-events: none;
+}
+
+/* ── SCENE: TESTIMONIALS — the trust scene ──────────────────── */
+.scene-testimonials {
+  background:
+    radial-gradient(ellipse 64% 44% at 50% 0%, oklch(0.95 0.030 25 / 0.55) 0%, transparent 64%),
+    radial-gradient(ellipse 44% 38% at 10% 86%, oklch(0.93 0.045 80 / 0.5) 0%, transparent 70%),
+    oklch(0.99 0.006 84);
+}
+
+.scene-testimonials::before {
+  content: "”";
+  position: absolute;
+  top: -2rem;
+  inset-inline-start: 4%;
+  font-family: var(--font-display), serif;
+  font-size: clamp(11rem, 22vw, 20rem);
+  line-height: 1;
+  font-weight: 700;
+  color: oklch(0.76 0.10 82 / 0.13);
+  pointer-events: none;
+}
+
+[data-testimonials-featured] {
+  position: relative;
+}
+
+[data-testimonials-featured]::before {
+  content: "";
+  position: absolute;
+  inset: -2.2rem -2.6rem;
+  z-index: -1;
+  border-radius: 3rem;
+  background: radial-gradient(ellipse at 50% 40%, oklch(0.92 0.05 81 / 0.55), transparent 72%);
+  pointer-events: none;
+}
+
+[data-testimonials-card] figure {
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
+}
+
+[data-testimonials-card]:nth-child(odd) figure {
+  transform: rotate(-1.15deg);
+}
+
+[data-testimonials-card]:nth-child(even) figure {
+  transform: rotate(1deg) translateY(6px);
+}
+
+[data-testimonials-card]:hover figure {
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow: 0 18px 44px oklch(0.55 0.07 75 / 0.16);
+}
+
+/* ── Journey: responsive + simplification ───────────────────── */
+@media (max-width: 767px) {
+  .hero-scene-img { opacity: 0.13; }
+
+  .hero-scene-beam,
+  .hero-scene-arch--far,
+  .hero-scene-particles,
+  .hero-corner,
+  .scene-stories::before,
+  .scene-stories::after,
+  .stories-cinema-beam {
+    display: none;
+  }
+
+  .hero-scene-arch {
+    inset-inline-end: -22%;
+    opacity: 0.7;
+  }
+
+  .journey-gap { height: 6rem; }
+
+  .scene-testimonials::before { font-size: 8rem; }
+
+  [data-testimonials-card]:nth-child(odd) figure,
+  [data-testimonials-card]:nth-child(even) figure {
+    transform: none;
+  }
+}
+
+/* ── Reduced motion — override ALL new animation classes ────── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-scene-arch,
+  .hero-scene-arch--far {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .hero-scene-img {
+    transform: none !important;
+  }
+
+  [data-testimonials-card] figure {
+    transition: none !important;
+  }
+
+  .hero-entrance-kicker,
+  .hero-entrance-title,
+  .hero-entrance-divider,
+  .hero-entrance-subtitle,
+  .hero-entrance-ctas,
+  .hero-entrance-stage {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .hero-feature-card {
+    animation: none !important;
+  }
+
+  .testimonials-hidden {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .hero-scroll-hint {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+
+  .hero-scroll-hint-line::after {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+
+  .animate-reveal-up {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .animate-float,
+  .animate-petal,
+  .animate-spin-slow {
+    animation: none !important;
+  }
+}

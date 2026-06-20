@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 50" width="150" height="50" role="img" aria-label="Qasr Al-Farah">
+  <defs>
+    <linearGradient id="qf-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#caa05a"/>
+      <stop offset="100%" stop-color="#8a6a32"/>
+    </linearGradient>
+  </defs>
+  <g fill="none" stroke="url(#qf-gold)" stroke-width="2">
+    <path d="M10 38 V22 a15 15 0 0 1 30 0 V38" stroke-linecap="round"/>
+    <line x1="6" y1="38" x2="44" y2="38" stroke-linecap="round"/>
+  </g>
+  <text x="56" y="32" font-family="Georgia, 'Times New Roman', serif" font-size="20" font-weight="700" fill="#6b4f23">
+    Qasr Al-Farah
+  </text>
+</svg>

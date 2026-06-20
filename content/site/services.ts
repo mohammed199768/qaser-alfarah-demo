@@ -1,0 +1,117 @@
+import type { ServiceItem } from "@/types/site-content";
+
+export const services: ServiceItem[] = [
+  {
+    id: "hall",
+    order: 1,
+    featured: true,
+    icon: "Building2",
+    image: "/site/gallery/hall-1.jpg",
+    name: { ar: "حجز قاعة الأفراح", en: "Wedding hall booking" },
+    description: {
+      ar: "قاعة فاخرة بتجهيزات استقبال وجلوس وإضاءة تناسب حفلات الزفاف والخطوبة والمناسبات العائلية الراقية.",
+      en: "A refined hall with guest seating, reception flow, and lighting suited for weddings, engagements, and elegant family celebrations.",
+    },
+    priceHint: { ar: "زيارة القاعة متاحة", en: "Hall visits available" },
+    cta: { href: "/contact", label: { ar: "احجز موعدك", en: "Book a visit" } },
+  },
+  {
+    id: "zaffa",
+    order: 2,
+    featured: true,
+    icon: "Music",
+    image: "/site/gallery/events-1.jpg",
+    name: { ar: "الزفة ودخلة العروسين", en: "Zaffa and grand entrance" },
+    description: {
+      ar: "تنسيق لحظة الدخول بالموسيقى والإضاءة ومسار العروسين حتى تبدأ الليلة بصورة تليق بفرحكم.",
+      en: "A coordinated entrance moment with music, lighting, and couple flow so the celebration begins with presence and polish.",
+    },
+    priceHint: { ar: "تنسيق حسب الباقة", en: "Package based" },
+  },
+  {
+    id: "food",
+    order: 3,
+    featured: true,
+    icon: "UtensilsCrossed",
+    image: "/site/gallery/food-1.jpg",
+    name: { ar: "الضيافة وباقات الطعام", en: "Hospitality and food packages" },
+    description: {
+      ar: "ضيافة مرتبة من الاستقبال إلى الموائد والحلويات، مع خيارات مرنة تناسب عدد الضيوف وطابع المناسبة.",
+      en: "Thoughtful hospitality from welcome service to tables and desserts, with flexible options for guest count and event style.",
+    },
+    priceHint: { ar: "حسب عدد الضيوف", en: "By guest count" },
+  },
+  {
+    id: "photography",
+    order: 4,
+    icon: "Camera",
+    image: "/site/gallery/couple-1.jpg",
+    name: { ar: "التصوير وتوثيق اللحظات", en: "Photography and moments" },
+    description: {
+      ar: "تنسيق مع فريق تصوير لتوثيق تفاصيل القاعة، دخول العروسين، لقطات العائلة، وأجمل لحظات الحفل.",
+      en: "Photo coverage for the hall details, couple entrance, family moments, and the celebration highlights.",
+    },
+    priceHint: { ar: "صور ولقطات مميزة", en: "Photo moments" },
+  },
+  {
+    id: "decoration",
+    order: 5,
+    icon: "Flower2",
+    image: "/site/gallery/decor-1.jpg",
+    name: { ar: "الكوشة والديكور والزهور", en: "Stage, decor, and florals" },
+    description: {
+      ar: "تصميم كوشة وتنسيق زهور وإكسسوارات طاولات بألوان متناغمة مع ذوق العروسين وهوية الحفل.",
+      en: "Stage styling, floral details, and table accents coordinated around the couple's taste and the event identity.",
+    },
+    priceHint: { ar: "تصاميم قابلة للتخصيص", en: "Custom styling" },
+  },
+  {
+    id: "lighting",
+    order: 6,
+    icon: "Lightbulb",
+    image: "/site/hero.jpg",
+    name: { ar: "إضاءة القاعة والمسرح", en: "Hall and stage lighting" },
+    description: {
+      ar: "إضاءة ناعمة للحضور وإضاءة مسرحية للحظات المهمة، من الدخول إلى الرقصات والتصوير.",
+      en: "Soft guest lighting and theatrical stage moments for entrances, dances, and photography.",
+    },
+    priceHint: { ar: "إعدادات حسب الفقرة", en: "Scene based" },
+  },
+  {
+    id: "dj",
+    order: 7,
+    icon: "Mic2",
+    image: "/site/gallery/events-1.jpg",
+    name: { ar: "الصوتيات والدي جي", en: "DJ and audio" },
+    description: {
+      ar: "نظام صوت واضح وإدارة موسيقية تناسب فقرات الحفل، من الاستقبال إلى نهاية السهرة.",
+      en: "Clear audio and music flow for the full evening, from guest arrival through the final celebration.",
+    },
+    priceHint: { ar: "تنسيق كامل للصوت", en: "Audio coordination" },
+  },
+  {
+    id: "car",
+    order: 8,
+    icon: "Car",
+    image: "/site/gallery/hall-1.jpg",
+    name: { ar: "استقبال ومسار الوصول", en: "Arrival and reception flow" },
+    description: {
+      ar: "تنظيم لحظة الوصول والاستقبال ومسار الضيوف داخل القاعة لتبقى الحركة مريحة وواضحة طوال الحفل.",
+      en: "Arrival, reception, and guest flow coordination so movement through the hall feels calm and clear.",
+    },
+    priceHint: { ar: "مناسب للضيوف والعائلة", en: "Guest friendly" },
+  },
+  {
+    id: "memory-book",
+    order: 9,
+    icon: "BookHeart",
+    image: "/site/og-image.jpg",
+    name: { ar: "سجل الذكريات الرقمي", en: "Digital memory book" },
+    description: {
+      ar: "يجمع تهاني الضيوف وصورهم في سجل رقمي أنيق يبقى مع العروسين بعد انتهاء الليلة.",
+      en: "A polished digital keepsake that gathers guest wishes and photos after the celebration ends.",
+    },
+    priceHint: { ar: "ذكرى تبقى للأبد", en: "Lasting keepsake" },
+    cta: { href: "/contact", label: { ar: "اسأل عنه", en: "Ask about it" } },
+  },
+];
