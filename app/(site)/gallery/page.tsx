@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { getLocale } from "@/lib/i18n";
-import { getContent, getGallery } from "@/content/site";
+import { getContent, getGallery, getGalleryCollections } from "@/content/site";
 import { Container } from "@/components/ui/Container";
-import GalleryGrid from "@/components/site/GalleryGrid";
+import GalleryCollections from "@/components/site/GalleryCollections";
 import CtaBand from "@/components/site/CtaBand";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -32,12 +32,12 @@ export default async function GalleryPage() {
   const locale = await getLocale();
   const content = getContent(locale);
   const items = getGallery();
+  const collections = getGalleryCollections();
 
   const labels = {
-    heading: content.gallery.heading,
-    subheading: content.gallery.subheading,
-    viewAll: content.home.gallerySection.viewAll,
-    filters: content.gallery.filters,
+    filters: content.gallery.filters as Record<string, string>,
+    photosLabel: locale === "ar" ? "صورة" : "photos",
+    viewLabel: locale === "ar" ? "عرض المجموعة" : "View collection",
   };
 
   return (
@@ -54,14 +54,13 @@ export default async function GalleryPage() {
         </Container>
       </section>
 
-      {/* Interactive Gallery */}
+      {/* Interactive collection gallery */}
       <section className="py-16 md:py-24">
-        <GalleryGrid 
-          locale={locale} 
-          variant="all" 
-          items={items} 
-          labels={labels} 
-          showFilters={true} 
+        <GalleryCollections
+          locale={locale}
+          items={items}
+          collections={collections}
+          labels={labels}
         />
       </section>
 

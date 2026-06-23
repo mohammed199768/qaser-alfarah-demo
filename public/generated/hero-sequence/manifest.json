@@ -1,0 +1,16 @@
+{
+  "frameCount": 60,
+  "width": 1280,
+  "height": 720,
+  "fps": 5.994,
+  "requestedFps": 12,
+  "quality": 75,
+  "totalSize": 2056304,
+  "averageFrameSize": 34272,
+  "outputPath": "public/generated/hero-sequence",
+  "filenamePattern": "frame_%04d.webp",
+  "sourceDuration": 10.01,
+  "maxFrames": 60,
+  "ssim": 0.986111,
+  "generatedAt": "2026-06-22T16:41:07.427Z"
+}

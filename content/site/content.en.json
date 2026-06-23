@@ -1,5 +1,5 @@
 {
-  "nav": { "home": "Home", "services": "Services", "gallery": "Gallery", "contact": "Contact", "book": "Book Now" },
+  "nav": { "home": "Home", "services": "Our Packages", "gallery": "Gallery", "contact": "Contact", "book": "Book Now" },
   "footer": { "blurb": "An elegant wedding hall where refined detail meets heartfelt celebration — for moments that last forever.", "rightsLine": "All rights reserved", "poweredBy": "Powered by" },
   "home": {
     "hero": { "title": "Where the most beautiful moments begin", "subtitle": "A luxury hall, full-service planning, and digital memories that last.", "ctaBook": "Book your date", "ctaGallery": "View gallery" },
@@ -10,18 +10,18 @@
       { "icon": "Plus", "title": "Flexible add-ons", "text": "Zaffa, professional photography, theatrical lighting, and bespoke décor — curated for you." },
       { "icon": "QrCode", "title": "Guest QR memories", "text": "Guests scan a QR code to contribute their moments directly from the hall in real time." }
     ],
-    "servicesSection": { "heading": "Our services", "subheading": "Everything you need for a perfect day, all in one place", "viewAll": "All services" },
+    "servicesSection": { "heading": "Our Packages", "subheading": "Complete wedding bundles that bring everything your day needs into one place", "viewAll": "All packages" },
     "gallerySection": { "heading": "Our work", "subheading": "A glimpse of our finest moments", "viewAll": "All photos" },
     "memoryTeaser": { "heading": "Digital memory book", "body": "Gather guest wishes, messages, and photos into one beautiful digital keepsake — yours forever.", "cta": "Learn more" },
     "contactTeaser": { "heading": "We are here for you", "body": "Reach out with any questions or to arrange a visit. Our team is always happy to help you plan.", "cta": "Contact us" },
     "finalCta": { "heading": "Reserve your wedding date today", "cta": "Book now" }
   },
-  "services": { "heading": "Our services", "subheading": "Complete packages and services" },
-  "gallery": { "heading": "Gallery", "subheading": "Moments from our events", "filters": { "all": "All", "hall": "Hall", "decoration": "Decoration", "food": "Food", "events": "Events", "couple": "Couple" } },
+  "services": { "heading": "Our Packages", "subheading": "Complete wedding packages under one roof" },
+  "gallery": { "heading": "Gallery", "subheading": "Moments from Qasr Al-Farah", "filters": { "all": "All", "hall": "Hall", "decoration": "Decoration", "food": "Hospitality", "events": "Celebration Moments", "couple": "The Couple" } },
   "contact": { "heading": "Contact us", "subheading": "We're here to help", "labels": { "phone": "Phone", "whatsapp": "WhatsApp", "address": "Address", "hours": "Hours", "directions": "Directions" }, "address": "Amman, Jordan", "hours": "Daily 10am – 10pm" },
   "seo": {
     "home": { "title": "Luxury Wedding Hall | Home", "description": "Book your luxury wedding hall with full services and a digital memory book." },
-    "services": { "title": "Services | Wedding Hall", "description": "Zaffa, photography, catering, decor, lighting, DJ and more." },
+    "services": { "title": "Our Packages | Wedding Hall", "description": "Complete wedding packages bundling the hall, zaffa, hospitality, decor, and memories." },
     "gallery": { "title": "Gallery | Wedding Hall", "description": "See our hall's atmosphere and events." },
     "contact": { "title": "Contact | Wedding Hall", "description": "Address, phone, WhatsApp and location." },
     "booking": { "title": "Book Now | Wedding Hall", "description": "Pick an available date and slot to book your hall." }

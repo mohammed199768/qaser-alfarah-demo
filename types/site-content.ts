@@ -51,6 +51,20 @@ export interface GalleryItem {
   order: number;
 }
 
+/**
+ * A curated collection of gallery images presented as a single premium card
+ * (one main image + preview thumbnails). Collections are derived from the flat
+ * `gallery` array; each `imageIds` entry references a `GalleryItem.id`.
+ */
+export interface GalleryCollection {
+  id: string;
+  category: GalleryCategory;
+  title: Localized;
+  /** Ordered image ids — first is the main image, the rest are previews. */
+  imageIds: string[];
+  order: number;
+}
+
 export interface PageSeo { title: string; description: string; }
 
 export interface SiteContent {

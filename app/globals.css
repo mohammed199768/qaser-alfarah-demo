@@ -243,6 +243,935 @@
   }
 }
 
+/* ── Interactive wedding album ─────────────────────────────── */
+.wedding-book-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 14% 22%, oklch(0.92 0.05 82 / 0.62), transparent 30%),
+    radial-gradient(circle at 88% 76%, oklch(0.94 0.035 25 / 0.5), transparent 32%),
+    oklch(0.985 0.008 84);
+}
+
+.wedding-book-section::before {
+  content: "";
+  position: absolute;
+  inset: 1.5rem;
+  border: 1px solid oklch(0.72 0.08 78 / 0.19);
+  border-radius: 2rem;
+  pointer-events: none;
+}
+
+.wedding-book-section-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: min(100% - 2rem, 76rem);
+  min-height: 48rem;
+  margin-inline: auto;
+  align-items: center;
+  gap: clamp(3rem, 8vw, 7rem);
+  padding-block: clamp(5rem, 10vw, 8rem);
+}
+
+.wedding-book-intro {
+  max-width: 33rem;
+  text-align: center;
+}
+
+.wedding-book-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: oklch(0.52 0.08 76);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.wedding-book-eyebrow svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.wedding-book-intro h2 {
+  margin-top: 1.1rem;
+  color: oklch(0.22 0.028 58);
+  font-family: var(--font-display-ar), var(--font-display), serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 700;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.wedding-book-description {
+  max-width: 31rem;
+  margin: 1.5rem auto 0;
+  color: oklch(0.42 0.018 58);
+  font-size: clamp(1rem, 1.6vw, 1.12rem);
+  line-height: 1.95;
+  text-wrap: pretty;
+}
+
+.wedding-book-rule {
+  display: flex;
+  margin-top: 2rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.wedding-book-rule span {
+  width: 3.6rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, oklch(0.68 0.09 78 / 0.65));
+}
+
+.wedding-book-rule span:last-child {
+  transform: scaleX(-1);
+}
+
+.wedding-book-rule i {
+  width: 0.42rem;
+  height: 0.42rem;
+  border: 1px solid oklch(0.62 0.1 76 / 0.7);
+  transform: rotate(45deg);
+}
+
+.wedding-book-hint {
+  margin-top: 0.85rem;
+  color: oklch(0.52 0.03 62);
+  font-size: 0.82rem;
+}
+
+.wedding-book-trigger {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  border-radius: 1.5rem;
+  padding: 1rem;
+  cursor: pointer;
+  perspective: 1100px;
+}
+
+.wedding-book-trigger:focus-visible {
+  outline: 2px solid oklch(0.66 0.11 76);
+  outline-offset: 8px;
+}
+
+.wedding-book-preview {
+  position: relative;
+  display: block;
+  width: min(72vw, 21rem);
+  aspect-ratio: 0.72;
+  transform-style: preserve-3d;
+}
+
+.wedding-book-page-stack,
+.wedding-book-cover {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border-radius: 0.55rem 1.1rem 1.1rem 0.55rem;
+}
+
+.wedding-book-page-stack {
+  background:
+    repeating-linear-gradient(90deg, oklch(0.93 0.025 82) 0 2px, oklch(0.99 0.006 84) 2px 5px);
+  box-shadow: 1.2rem 1.6rem 3.2rem oklch(0.32 0.04 60 / 0.22);
+  transform: translate3d(0.7rem, 0.55rem, -1rem);
+}
+
+.wedding-book-cover {
+  overflow: hidden;
+  border: 1px solid oklch(0.85 0.1 82 / 0.52);
+  background:
+    radial-gradient(circle at 80% 12%, oklch(0.66 0.12 78 / 0.22), transparent 27%),
+    linear-gradient(145deg, oklch(0.25 0.035 60), oklch(0.13 0.02 57));
+  box-shadow:
+    inset 0 0 0 1px oklch(1 0 0 / 0.08),
+    inset 0 0 3rem oklch(0.04 0.01 55 / 0.24),
+    1.25rem 1.6rem 3.2rem oklch(0.28 0.035 58 / 0.2);
+  color: oklch(0.91 0.08 82);
+  transform: rotateY(-9deg) rotateZ(0.7deg);
+  transform-origin: left center;
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 300ms ease;
+}
+
+.wedding-book-cover::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 26%;
+  background: linear-gradient(180deg, oklch(1 0 0 / 0.08), transparent);
+  pointer-events: none;
+}
+
+.wedding-book-trigger:hover .wedding-book-cover {
+  box-shadow:
+    inset 0 0 0 1px oklch(1 0 0 / 0.1),
+    inset 0 0 3rem oklch(0.04 0.01 55 / 0.2),
+    1.6rem 2rem 3.8rem oklch(0.28 0.035 58 / 0.26);
+  transform: rotateY(-3deg) rotateZ(0deg) translateY(-0.3rem);
+}
+
+.wedding-book-cover-frame {
+  position: absolute;
+  inset: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid oklch(0.79 0.11 82 / 0.52);
+  border-radius: 0.35rem 0.75rem 0.75rem 0.35rem;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.wedding-book-cover-frame::before,
+.wedding-book-cover-frame::after {
+  content: "";
+  position: absolute;
+  inset-inline: 1rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, oklch(0.86 0.12 82 / 0.72), transparent);
+}
+
+.wedding-book-cover-frame::before { top: 2.1rem; }
+.wedding-book-cover-frame::after { bottom: 2.1rem; }
+
+.wedding-book-cover-frame small {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+}
+
+.wedding-book-cover-frame strong {
+  margin-top: 1.8rem;
+  font-family: var(--font-display-ar), var(--font-display), serif;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: 1.05;
+}
+
+.wedding-book-cover-frame i {
+  width: 2rem;
+  height: 2rem;
+  margin-block: 1.5rem;
+  border: 1px solid oklch(0.85 0.12 82 / 0.75);
+  transform: rotate(45deg);
+}
+
+.wedding-book-cover-frame span {
+  color: oklch(0.92 0.035 82);
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.wedding-book-open-label {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  border: 1px solid oklch(0.68 0.09 78 / 0.35);
+  border-radius: 999px;
+  background: oklch(1 0 0 / 0.62);
+  box-shadow: 0 0.75rem 2rem oklch(0.34 0.04 60 / 0.09);
+  color: oklch(0.28 0.035 62);
+  padding: 0.65rem 1.4rem;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.wedding-book-open-label svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+@media (min-width: 800px) {
+  .wedding-book-section-inner {
+    grid-template-columns: minmax(0, 0.9fr) minmax(22rem, 1.1fr);
+  }
+
+  .wedding-book-intro {
+    text-align: start;
+  }
+
+  .wedding-book-description,
+  .wedding-book-rule {
+    margin-inline-start: 0;
+  }
+
+  .wedding-book-rule {
+    justify-content: flex-start;
+  }
+}
+
+/* Album dialog */
+.wedding-book-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: oklch(0.08 0.015 55 / 0.9);
+}
+
+.wedding-book-modal-panel {
+  display: flex;
+  width: min(100%, 68rem);
+  height: min(94dvh, 50rem);
+  min-height: 0;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid oklch(0.86 0.09 82 / 0.32);
+  border-radius: 1.5rem;
+  background:
+    radial-gradient(circle at 50% 0%, oklch(0.91 0.05 82 / 0.48), transparent 35%),
+    oklch(0.97 0.014 82);
+  box-shadow: 0 2.5rem 6rem oklch(0.02 0.008 55 / 0.55);
+}
+
+.wedding-book-modal-header {
+  display: flex;
+  min-height: 4.6rem;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid oklch(0.68 0.08 76 / 0.17);
+  padding: 0.8rem 1rem 0.8rem 1.4rem;
+}
+
+.wedding-book-modal-header span {
+  color: oklch(0.53 0.08 76);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.wedding-book-modal-header h2 {
+  margin-top: 0.18rem;
+  color: oklch(0.22 0.028 58);
+  font-family: var(--font-display-ar), var(--font-display), serif;
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  font-weight: 700;
+}
+
+.wedding-book-close,
+.wedding-flipbook-controls button {
+  display: inline-flex;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid oklch(0.64 0.07 74 / 0.25);
+  border-radius: 50%;
+  background: oklch(1 0 0 / 0.7);
+  color: oklch(0.30 0.035 62);
+  cursor: pointer;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.wedding-book-close:hover,
+.wedding-flipbook-controls button:hover:not(:disabled) {
+  border-color: oklch(0.64 0.1 76 / 0.58);
+  background: white;
+}
+
+.wedding-book-close:focus-visible,
+.wedding-flipbook-controls button:focus-visible {
+  outline: 2px solid oklch(0.65 0.11 76);
+  outline-offset: 2px;
+}
+
+.wedding-book-close svg,
+.wedding-flipbook-controls svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.wedding-book-loading {
+  display: grid;
+  flex: 1;
+  place-items: center;
+  align-content: center;
+  gap: 1rem;
+  color: oklch(0.42 0.025 60);
+}
+
+.wedding-book-loading span {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid oklch(0.7 0.08 76 / 0.2);
+  border-top-color: oklch(0.63 0.1 76);
+  border-radius: 50%;
+  animation: wedding-book-spin 0.8s linear infinite;
+}
+
+@keyframes wedding-book-spin { to { transform: rotate(360deg); } }
+
+.wedding-flipbook-experience {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wedding-flipbook-stage {
+  display: flex;
+  width: 100%;
+  min-height: 0;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0.75rem 1rem 0.25rem;
+}
+
+.wedding-flipbook {
+  filter: drop-shadow(0 1.4rem 1.5rem oklch(0.25 0.035 60 / 0.16));
+}
+
+.album-sheet {
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid oklch(0.70 0.06 74 / 0.16);
+  background: oklch(0.985 0.009 84);
+  color: oklch(0.24 0.025 58);
+  box-shadow: inset 0 0 2rem oklch(0.52 0.04 65 / 0.035);
+}
+
+.album-sheet::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(oklch(0.38 0.03 60 / 0.055) 0.45px, transparent 0.6px);
+  background-size: 5px 5px;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.album-sheet-cover {
+  border-color: oklch(0.82 0.1 82 / 0.35);
+  background:
+    radial-gradient(circle at 80% 12%, oklch(0.72 0.13 82 / 0.2), transparent 25%),
+    linear-gradient(145deg, oklch(0.26 0.04 62), oklch(0.12 0.018 57));
+  color: oklch(0.91 0.08 82);
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.album-cover-content,
+.album-final-content,
+.album-story-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.album-cover-content {
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+}
+
+.album-cover-ornament {
+  position: absolute;
+  inset: 1.1rem;
+  border: 1px solid oklch(0.84 0.11 82 / 0.48);
+  pointer-events: none;
+}
+
+.album-cover-content p,
+.album-cover-content small {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+}
+
+.album-cover-content svg {
+  width: 1.8rem;
+  height: 1.8rem;
+  margin-top: 3rem;
+  stroke-width: 1.3;
+}
+
+.album-cover-content h3 {
+  margin-top: 1.1rem;
+  font-family: var(--font-display-ar), var(--font-display), serif;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+.album-cover-content > span {
+  max-width: 15rem;
+  margin-top: 1.3rem;
+  color: oklch(0.94 0.03 82);
+  font-size: 0.82rem;
+  line-height: 1.7;
+}
+
+.album-cover-content small { margin-top: auto; }
+
+.album-sheet-story {
+  padding: 0;
+}
+
+.album-story-content {
+  padding: clamp(2rem, 5vw, 3.25rem);
+}
+
+.album-story-topline {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: oklch(0.56 0.08 76);
+}
+
+.album-story-topline span {
+  font-family: var(--font-display), serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.album-story-topline i {
+  height: 1px;
+  flex: 1;
+  background: oklch(0.62 0.08 76 / 0.35);
+}
+
+.album-story-topline small {
+  font-size: 0.48rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.album-story-content h3 {
+  max-width: 18rem;
+  margin-top: clamp(2rem, 7vh, 4.2rem);
+  font-family: var(--font-display-ar), var(--font-display), serif;
+  font-size: clamp(1.85rem, 4vw, 2.7rem);
+  font-weight: 700;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.album-story-content > p {
+  margin-top: 1.4rem;
+  color: oklch(0.40 0.018 58);
+  font-size: clamp(0.82rem, 1.5vw, 0.96rem);
+  line-height: 2;
+}
+
+.album-story-content blockquote {
+  position: relative;
+  margin-top: auto;
+  border-inline-start: 2px solid oklch(0.63 0.1 76 / 0.7);
+  color: oklch(0.31 0.035 61);
+  padding: 0.3rem 1rem;
+  font-family: var(--font-display-ar), var(--font-display), serif;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+.album-page-number {
+  position: absolute;
+  inset-inline-end: 1rem;
+  bottom: 0.75rem;
+  color: oklch(0.52 0.04 64);
+  font-family: var(--font-display), serif;
+  font-size: 0.72rem;
+}
+
+.album-sheet-image {
+  background: oklch(0.15 0.02 58);
+}
+
+.album-sheet-image > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.album-image-wash {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, oklch(0.08 0.015 55 / 0.82));
+}
+
+.album-image-caption {
+  position: absolute;
+  inset-inline: 1.7rem;
+  bottom: 2.2rem;
+  z-index: 1;
+  color: white;
+}
+
+.album-image-caption small {
+  color: oklch(0.89 0.09 82);
+  font-family: var(--font-display), serif;
+  font-size: 0.86rem;
+}
+
+.album-image-caption h3 {
+  margin-top: 0.45rem;
+  font-family: var(--font-display-ar), var(--font-display), serif;
+  font-size: clamp(1.8rem, 4vw, 2.65rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.album-image-caption p {
+  max-width: 18rem;
+  margin-top: 0.8rem;
+  color: oklch(0.96 0.016 82);
+  font-size: 0.82rem;
+  line-height: 1.7;
+}
+
+.album-sheet-image .album-page-number { z-index: 1; color: white; }
+
+.album-sheet-final {
+  background:
+    radial-gradient(circle at 50% 35%, oklch(0.91 0.06 82 / 0.55), transparent 36%),
+    oklch(0.96 0.022 82);
+  padding: 2.5rem;
+  text-align: center;
+}
+
+.album-final-content {
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem;
+}
+
+.album-final-content > svg {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: oklch(0.58 0.1 76);
+  stroke-width: 1.3;
+}
+
+.album-final-content h3 {
+  margin-top: 1.5rem;
+  font-family: var(--font-display-ar), var(--font-display), serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.album-final-content p {
+  max-width: 18rem;
+  margin-top: 1rem;
+  color: oklch(0.41 0.02 58);
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+.album-final-content a {
+  display: inline-flex;
+  min-height: 2.8rem;
+  margin-top: 1.5rem;
+  align-items: center;
+  border-radius: 999px;
+  background: linear-gradient(135deg, oklch(0.79 0.11 82), oklch(0.67 0.12 76));
+  color: oklch(0.18 0.02 58);
+  padding: 0.6rem 1.3rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.album-final-content small {
+  margin-top: auto;
+  color: oklch(0.51 0.055 70);
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.wedding-flipbook-controls {
+  display: grid;
+  width: min(100% - 2rem, 34rem);
+  flex: 0 0 auto;
+  grid-template-columns: 2.75rem minmax(0, 1fr) 2.75rem;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 0.5rem 1rem;
+}
+
+.wedding-flipbook-controls button:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+.wedding-flipbook-controls > div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  text-align: center;
+}
+
+.wedding-flipbook-controls span {
+  color: oklch(0.29 0.03 60);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.wedding-flipbook-controls small {
+  margin-top: 0.15rem;
+  overflow: hidden;
+  color: oklch(0.51 0.02 60);
+  font-size: 0.68rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .wedding-book-section::before { inset: 0.75rem; }
+  .wedding-book-section-inner { min-height: auto; padding-block: 4.5rem; }
+  .wedding-book-modal { padding: 0; }
+  .wedding-book-modal-panel { width: 100%; height: 100dvh; border: 0; border-radius: 0; }
+  .wedding-book-modal-header { min-height: 4.25rem; }
+  .wedding-flipbook-stage { padding-inline: 0.45rem; }
+  .wedding-flipbook { filter: drop-shadow(0 0.8rem 1rem oklch(0.25 0.035 60 / 0.12)); }
+  .album-story-content { padding: 1.6rem; }
+  .album-story-content h3 { margin-top: 1.6rem; }
+  .album-story-content > p { line-height: 1.8; }
+  .album-story-content blockquote { font-size: 0.95rem; }
+  .wedding-flipbook-controls small { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wedding-book-cover,
+  .wedding-book-trigger:hover .wedding-book-cover {
+    transition: none;
+    transform: none;
+  }
+
+  .wedding-book-loading span { animation: none; }
+}
+
+/* ── Editorial hero: single cinematic scene, inspired by the supplied concept ── */
+.hero-editorial {
+  position: relative;
+  isolation: isolate;
+  min-height: min(54rem, calc(100svh - 5.5rem));
+  overflow: hidden;
+  color: oklch(0.22 0.025 58);
+  background: transparent;
+}
+
+.hero-bubble-field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hero-editorial-shell {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  min-height: inherit;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3rem;
+  padding-top: clamp(3.5rem, 8vh, 6rem);
+  padding-bottom: clamp(1.25rem, 3vw, 2.25rem);
+}
+
+.hero-editorial-copy {
+  display: flex;
+  width: min(100%, 68rem);
+  min-width: 0;
+  margin-inline: auto;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-editorial-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: oklch(0.48 0.075 72);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.hero-editorial-eyebrow span {
+  width: clamp(2rem, 6vw, 5rem);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, oklch(0.88 0.10 82 / 0.88));
+}
+
+.hero-editorial-eyebrow span:last-child {
+  transform: scaleX(-1);
+}
+
+.hero-editorial-title {
+  margin-top: clamp(1.4rem, 3vw, 2.3rem);
+  color: transparent;
+  font-family: var(--font-display-ar), var(--font-display), serif;
+  font-size: clamp(4.7rem, 14vw, 12rem);
+  font-weight: 700;
+  line-height: 0.82;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+  background:
+    linear-gradient(180deg, oklch(0.29 0.045 64), oklch(0.55 0.095 74));
+  background-clip: text;
+  -webkit-background-clip: text;
+  filter: drop-shadow(0 12px 28px oklch(0.66 0.07 78 / 0.14));
+}
+
+:lang(ar) .hero-editorial-title {
+  letter-spacing: normal;
+  line-height: 1;
+}
+
+.hero-editorial-heading {
+  width: 100%;
+  margin-top: clamp(1.5rem, 3vw, 2.2rem);
+  font-family: var(--font-display-ar), var(--font-display), serif;
+  font-size: clamp(1.55rem, 3.2vw, 2.45rem);
+  font-weight: 700;
+  line-height: 1.35;
+  text-wrap: balance;
+  color: oklch(0.24 0.025 58);
+  text-shadow: none;
+}
+
+.hero-editorial-subtitle {
+  width: min(100%, 39rem);
+  max-width: 39rem;
+  margin-top: 0.7rem;
+  color: oklch(0.40 0.025 58);
+  font-size: clamp(0.95rem, 1.8vw, 1.12rem);
+  line-height: 1.8;
+  text-wrap: balance;
+  text-shadow: none;
+}
+
+.hero-editorial-actions {
+  display: flex;
+  margin-top: 1.65rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.hero-editorial-primary,
+.hero-editorial-secondary {
+  display: inline-flex;
+  min-height: 3rem;
+  min-width: 10.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0.7rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: transform 220ms ease, background-color 220ms ease, border-color 220ms ease;
+}
+
+.hero-editorial-primary {
+  color: oklch(0.18 0.025 60);
+  background: linear-gradient(135deg, oklch(0.89 0.10 82), oklch(0.73 0.12 76));
+  box-shadow: 0 12px 28px oklch(0.07 0.015 55 / 0.30);
+}
+
+.hero-editorial-secondary {
+  color: oklch(0.28 0.035 62);
+  border-color: oklch(0.55 0.07 74 / 0.34);
+  background: oklch(1 0 0 / 0.48);
+  backdrop-filter: blur(12px);
+}
+
+.hero-editorial-primary:hover,
+.hero-editorial-secondary:hover {
+  transform: translateY(-2px);
+}
+
+.hero-editorial-secondary:hover {
+  border-color: oklch(0.88 0.10 82 / 0.9);
+  background: oklch(1 0 0 / 0.76);
+}
+
+.hero-editorial-primary:focus-visible,
+.hero-editorial-secondary:focus-visible {
+  outline: 2px solid oklch(0.92 0.09 82);
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .hero-editorial {
+    min-height: calc(100svh - 5rem);
+  }
+
+  .hero-editorial-shell {
+    gap: 2rem;
+    padding-top: 2.7rem;
+    padding-bottom: 2.7rem;
+    overflow: hidden;
+  }
+
+  .hero-editorial-title {
+    max-width: 100%;
+    font-size: clamp(3.25rem, 16vw, 4.25rem);
+  }
+
+  .hero-editorial-actions {
+    width: 100%;
+    max-width: 20rem;
+    flex-direction: column;
+  }
+
+  .hero-editorial-subtitle {
+    max-width: 18rem;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-wrap: pretty;
+  }
+
+  .hero-editorial-primary,
+  .hero-editorial-secondary {
+    width: 100%;
+    flex: none;
+    min-width: 0;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-editorial-primary,
+  .hero-editorial-secondary {
+    transition: none;
+  }
+}
+
 /* ───────── Zero-loop hero card arc, inspired by the attached flip-card concept ───────── */
 .hero-kicker,
 .hero-secondary-cta {

@@ -1,0 +1,33 @@
+{
+  "description": "Sharp resting keyframes for /scroll-story (re-encoded from hero-sequence-4s).",
+  "quality": 95,
+  "unsharp": "unsharp=5:5:0.7:5:5:0.0",
+  "source": "public/generated/hero-sequence-4s",
+  "keyframes": [
+    {
+      "id": "memory",
+      "file": "memory.webp",
+      "sourceFrame": 1,
+      "crop": "in_w:in_h*0.66:0:in_h*0.34",
+      "note": "frame 1 cropped to lower ballroom (removes distorted AI ghost-couples up top)",
+      "size": 98556
+    },
+    {
+      "id": "details",
+      "file": "details.webp",
+      "sourceFrame": 27,
+      "crop": null,
+      "note": "cake; sharpest balanced composition in 22-32 (clean)",
+      "size": 101886
+    },
+    {
+      "id": "promise",
+      "file": "promise.webp",
+      "sourceFrame": 48,
+      "crop": null,
+      "note": "rings; sharpest, most prominent (clean)",
+      "size": 74088
+    }
+  ],
+  "generatedAt": "2026-06-22T18:38:25.521Z"
+}
