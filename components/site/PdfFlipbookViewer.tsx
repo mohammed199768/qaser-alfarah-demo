@@ -15,6 +15,7 @@ import HTMLFlipBookSource from "@/react-pageflip-master/src";
 import type { Locale } from "@/lib/i18n";
 import type { Booklet } from "@/content/site/booklets";
 import NoteDrawModal from "@/components/site/NoteDrawModal";
+import PremiumSvgLoader from "@/components/site/PremiumSvgLoader";
 
 /* ── react-pageflip (approved local pageflip, demo-only) ─────────────── */
 type FlipHandle = {
@@ -64,8 +65,9 @@ const COPY = {
     next: "الصفحة التالية",
     page: "صفحة",
     of: "من",
-    loading: "جارٍ تحضير الدفتر…",
-    rendering: "جارٍ تجهيز الصفحات",
+    loading: "جاري فتح الدفتر",
+    rendering: "تجهيز الصفحة",
+    lightPreparing: "تجهيز وضع القراءة الخفيف",
     error: "تعذّر فتح هذا الملف حالياً. يرجى المحاولة لاحقاً.",
     tabletError: "تعذر فتح الدفتر على هذا الجهاز. جرّب فتحه على جهاز أقوى أو حمّل ملف PDF.",
     openPdf: "فتح ملف PDF",
@@ -79,8 +81,9 @@ const COPY = {
     next: "Next page",
     page: "Page",
     of: "of",
-    loading: "Preparing the booklet…",
-    rendering: "Rendering pages",
+    loading: "Opening booklet",
+    rendering: "Preparing page",
+    lightPreparing: "Preparing light reading mode",
     error: "This file could not be opened right now. Please try again later.",
     tabletError: "This device could not open the booklet. Try a stronger device or download the PDF.",
     openPdf: "Open PDF",
@@ -391,19 +394,20 @@ export default function PdfFlipbookViewer({
       {/* Stage */}
       <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden px-3 pb-2">
         {render.status === "loading" && (
-          <div className="flex flex-col items-center gap-4 text-center" style={{ color: "oklch(0.86 0.04 82)" }}>
-            <span
-              className="size-10 animate-spin rounded-full border-2 border-white/20"
-              style={{ borderTopColor: "oklch(0.84 0.10 82)" }}
-              aria-hidden="true"
-            />
-            <p className="text-sm">{copy.loading}</p>
-            {"total" in render && render.total > 0 && !isLightMode && (
-              <p className="text-xs opacity-70" aria-live="polite">
-                {copy.rendering}: {render.done} / {render.total}
-              </p>
-            )}
-          </div>
+          <PremiumSvgLoader
+            variant="modal"
+            label={isLightMode ? copy.lightPreparing : copy.loading}
+            progress={
+              "total" in render && render.total > 0 && !isLightMode
+                ? { done: render.done, total: render.total }
+                : undefined
+            }
+            sublabel={
+              "total" in render && render.total > 0 && !isLightMode
+                ? copy.rendering
+                : undefined
+            }
+          />
         )}
 
         {render.status === "error" && (
@@ -453,9 +457,7 @@ export default function PdfFlipbookViewer({
                     draggable={false}
                   />
                 ) : (
-                  <div className="flex flex-col items-center gap-3" style={{ color: "oklch(0.86 0.04 82)" }}>
-                    <span className="size-8 animate-spin rounded-full border-2 border-white/20" style={{ borderTopColor: "oklch(0.84 0.10 82)" }} />
-                  </div>
+                  <PremiumSvgLoader variant="inline" label={`${copy.rendering} ${pageIndex + 1}`} />
                 )}
               </div>
             ) : (
