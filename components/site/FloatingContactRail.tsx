@@ -48,10 +48,10 @@ export default function FloatingContactRail() {
   return (
     <nav
       aria-label={QUICK_LINK_ARIA_LABEL}
-      className="pointer-events-none fixed inset-x-3 bottom-[calc(0.75rem+env(safe-area-inset-bottom))] z-[45] flex justify-center md:inset-x-auto md:bottom-auto md:right-4 md:top-[58%] md:-translate-y-1/2 md:justify-start"
+      className="pointer-events-none fixed end-2 top-[42%] z-[45] flex -translate-y-1/2 justify-end sm:end-3 md:top-[58%] lg:end-4"
     >
       <div
-        className="pointer-events-auto flex max-w-full items-center gap-2 rounded-full border px-2 py-2 shadow-[var(--brand-shadow-warm)] backdrop-blur-xl md:flex-col"
+        className="pointer-events-auto flex max-w-full flex-col items-center gap-1.5 rounded-full border px-1.5 py-1.5 shadow-[var(--brand-shadow-warm)] backdrop-blur-xl sm:gap-2 sm:px-2 sm:py-2"
         style={{
           background:
             "linear-gradient(135deg, oklch(1 0 0 / 0.80), oklch(0.98 0.012 82 / 0.66))",
@@ -66,7 +66,7 @@ export default function FloatingContactRail() {
             rel="noopener noreferrer"
             aria-label={link.label}
             title={link.label}
-            className="group flex size-11 shrink-0 items-center justify-center rounded-full border text-brand-muted-fg transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-primary/50 hover:text-brand-primary hover:shadow-[0_10px_24px_oklch(0.76_0.10_82_/_24%)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 focus-visible:ring-offset-brand-bg sm:size-12"
+            className="group flex size-10 shrink-0 items-center justify-center rounded-full border text-brand-muted-fg transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-primary/50 hover:text-brand-primary hover:shadow-[0_10px_24px_oklch(0.76_0.10_82_/_24%)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 focus-visible:ring-offset-brand-bg sm:size-11 lg:size-12"
             style={{
               background:
                 "linear-gradient(135deg, oklch(1 0 0 / 0.84), oklch(0.98 0.012 82 / 0.72))",

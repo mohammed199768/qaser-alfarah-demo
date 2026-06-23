@@ -241,6 +241,16 @@
     opacity: 1 !important;
     transform: none !important;
   }
+
+  /* Mobile/tablet bottom dock — suppress lift/scale motion, keep active styling */
+  .mobile-dock a,
+  .mobile-dock a span {
+    transition: none !important;
+  }
+  .mobile-dock a:hover span,
+  .mobile-dock a span {
+    transform: none !important;
+  }
 }
 
 /* ── Interactive wedding album ─────────────────────────────── */

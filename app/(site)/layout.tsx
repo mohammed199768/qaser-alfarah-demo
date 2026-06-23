@@ -6,6 +6,7 @@ import { getContent } from "@/content/site";
 import PublicHeader from "@/components/site/PublicHeader";
 import PublicFooter from "@/components/site/PublicFooter";
 import FloatingContactRail from "@/components/site/FloatingContactRail";
+import MobileBottomDock, { type DockItem } from "@/components/site/MobileBottomDock";
 
 /* ───────────────────────────────────────────────────────────────────────────
  * Self-hosted premium typography (served from /public/fonts).
@@ -88,15 +89,31 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
   const locale = await getLocale();
   const direction = getDirection(locale);
 
+  // Short, dock-friendly labels (the full nav labels can be too long for a
+  // five-up dock at 375px, e.g. "Our Packages" / "معرض الصور").
+  const dockItems: DockItem[] = [
+    { href: "/", label: locale === "ar" ? "الرئيسية" : "Home", icon: "home" },
+    { href: "/services", label: locale === "ar" ? "باقاتنا" : "Packages", icon: "services" },
+    { href: "/gallery", label: locale === "ar" ? "المعرض" : "Gallery", icon: "gallery" },
+    { href: "/booking", label: locale === "ar" ? "الحجز" : "Booking", icon: "booking" },
+    { href: "/contact", label: locale === "ar" ? "تواصل" : "Contact", icon: "contact" },
+  ];
+  const dockNavLabel = locale === "ar" ? "التنقل السريع" : "Quick navigation";
+
   return (
     <html lang={locale} dir={direction}>
       <body
         className={`${jost.variable} ${cormorant.variable} ${arefRuqaa.variable} ${tajawal.variable} antialiased min-h-screen flex flex-col bg-brand-bg text-brand-fg ${direction === "rtl" ? "font-body-ar" : "font-body-latin"}`}
       >
         <PublicHeader />
-        <main className="flex-1 flex flex-col">{children}</main>
+        {/* Bottom padding reserves space for the mobile/tablet dock so it never
+            covers content; removed at lg where the dock is hidden. */}
+        <main className="flex-1 flex flex-col pb-[calc(5.5rem+env(safe-area-inset-bottom))] lg:pb-0">
+          {children}
+        </main>
         <PublicFooter />
         <FloatingContactRail />
+        <MobileBottomDock items={dockItems} navLabel={dockNavLabel} />
       </body>
     </html>
   );

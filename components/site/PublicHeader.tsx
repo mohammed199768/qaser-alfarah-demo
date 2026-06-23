@@ -11,7 +11,6 @@ import { getLocale } from "@/lib/i18n";
 import { getSiteConfig, getContent } from "@/content/site";
 import { Container } from "@/components/ui/Container";
 import { LanguageToggle } from "@/components/LanguageToggle";
-import { PublicMobileMenu } from "@/components/site/PublicMobileMenu";
 import { cn } from "@/lib/utils";
 
 type PublicNavLink = {
@@ -91,7 +90,6 @@ export default async function PublicHeader() {
   const locale = await getLocale();
   const config = getSiteConfig();
   const content = getContent(locale);
-  const direction = locale === "ar" ? "rtl" : "ltr";
 
   const navLinks: PublicNavLink[] = [
     { href: "/", label: content.nav.home, Icon: Home },
@@ -99,7 +97,6 @@ export default async function PublicHeader() {
     { href: "/gallery", label: content.nav.gallery, Icon: ImageIcon },
     { href: "/contact", label: content.nav.contact, Icon: Phone },
   ];
-  const mobileNavLinks = navLinks.map(({ href, label }) => ({ href, label }));
 
   return (
     <header className="sticky top-0 z-50 w-full px-3 py-3 sm:px-4">
@@ -123,7 +120,7 @@ export default async function PublicHeader() {
           </Link>
 
           <nav
-            className="hidden items-center justify-center gap-1 rounded-full md:flex"
+            className="hidden items-center justify-center gap-1 rounded-full lg:flex"
             aria-label="Main navigation"
           >
             {navLinks.map(({ href, label, Icon }) => (
@@ -142,15 +139,7 @@ export default async function PublicHeader() {
           </nav>
 
           <div className="flex items-center justify-end gap-2">
-            <div>
-              <LanguageToggle currentLocale={locale} />
-            </div>
-            <PublicMobileMenu
-              items={mobileNavLinks}
-              menuLabel={locale === "ar" ? "\u0627\u0644\u0642\u0627\u0626\u0645\u0629" : "Menu"}
-              closeLabel={locale === "ar" ? "\u0625\u063a\u0644\u0627\u0642" : "Close"}
-              dir={direction}
-            />
+            <LanguageToggle currentLocale={locale} />
           </div>
         </NavGlassShell>
       </Container>
