@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
 import { getLocale } from "@/lib/i18n";
 import { getContent, getSiteConfig } from "@/content/site";
-import ServicesPackagesBook, {
-  type BookCopy,
-  type WeddingPackage,
-} from "@/components/site/ServicesPackagesBook";
+import type { BookCopy, WeddingPackage } from "@/components/site/ServicesPackagesBook";
+import ServicesPackagesStory from "@/components/site/ServicesPackagesStory";
 
 /* ----------------------------------------------------------------------------
  * "باقاتنا" / "Our Packages" — presented as a premium wedding book/catalog.
  *
  * Three package scenes (not nine services). Each package bundles the relevant
- * services as inclusions. All CTAs route to /contact. The cinematic book
- * presentation + light GSAP scroll motion lives in ServicesPackagesBook.
+ * services as inclusions. Booking CTAs route to /booking, contact to /contact.
+ * The cinematic alternating scroll-story (image left/right, overlapping
+ * editorial titles, GSAP parallax/reveal) lives in ServicesPackagesStory.
  * -------------------------------------------------------------------------- */
 
 const bookCopy: BookCopy = {
@@ -194,6 +193,6 @@ export default async function ServicesPage() {
   const copy: BookCopy = { ...bookCopy, book: content.nav.book };
 
   return (
-    <ServicesPackagesBook packages={packages} copy={copy} brandName={brandName} locale={locale} />
+    <ServicesPackagesStory packages={packages} copy={copy} brandName={brandName} locale={locale} />
   );
 }

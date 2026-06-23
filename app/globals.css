@@ -251,6 +251,28 @@
   .mobile-dock a span {
     transform: none !important;
   }
+
+  /* Packages scroll story — stop the cue bounce */
+  .services-story-cue {
+    animation: none !important;
+  }
+}
+
+/* ── Packages scroll-story — animated scroll cue (scoped) ───── */
+@keyframes servicesStoryCue {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+}
+
+.services-story-cue {
+  animation: servicesStoryCue 2s ease-in-out infinite;
 }
 
 /* ── Interactive wedding album ─────────────────────────────── */
