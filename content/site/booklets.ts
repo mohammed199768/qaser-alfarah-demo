@@ -36,7 +36,7 @@ export const booklets: Booklet[] = [
       ar: "نظرة شاملة على منظومة قصر الفرح الرقمية وكيف تتصل تجربة الحجز والدعوات والذكريات في مكان واحد.",
       en: "A complete look at Qasr Al-Farah’s digital ecosystem, connecting booking, invitations, and memories in one experience.",
     },
-    pdfUrl: "/pdf/Qasr_Al-Farah_Digital_Ecosystem%20(1).pdf",
+    pdfUrl: "/pdf/Qasr_Al-Farah_Digital_Ecosystem%20%281%29.pdf",
     sourceLabel: { ar: "كتيب النظام", en: "Ecosystem Booklet" },
     accent: "oklch(0.82 0.09 60)",
   },

@@ -91,7 +91,7 @@ const RENDER_SCALE = 1.4;
 
 type RenderState =
   | { status: "loading"; done: number; total: number }
-  | { status: "error" }
+  | { status: "error"; message?: string }
   | { status: "ready"; pages: string[] };
 
 interface PdfFlipbookViewerProps {
@@ -171,11 +171,8 @@ export default function PdfFlipbookViewer({
     (async () => {
       try {
         const pdfjs = await import("pdfjs-dist");
-        // Bundler-resolved worker URL (Turbopack/webpack friendly, no CDN).
-        pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-          "pdfjs-dist/build/pdf.worker.min.mjs",
-          import.meta.url,
-        ).toString();
+        // Use the stable public worker path instead of a dynamic bundler URL.
+        pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
 
         pdfTask = pdfjs.getDocument({ url: booklet.pdfUrl });
         const doc = await pdfTask.promise;
@@ -239,7 +236,7 @@ export default function PdfFlipbookViewer({
       } catch (err) {
         if (!cancelled && (err as Error)?.name !== "RenderingCancelledException") {
           console.error("PDF render error:", err);
-          setRender({ status: "error" });
+          setRender({ status: "error", message: (err as Error)?.message || "Unknown error" });
         }
       }
     })();
@@ -338,7 +335,10 @@ export default function PdfFlipbookViewer({
               color: "oklch(0.9 0.04 60)",
             }}
           >
-            {copy.error}
+            <p>{copy.error}</p>
+            {process.env.NODE_ENV !== "production" && render.message && (
+              <p className="mt-3 text-xs opacity-70 break-words">{render.message}</p>
+            )}
           </div>
         )}
 
