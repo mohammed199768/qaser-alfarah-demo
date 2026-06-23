@@ -19,6 +19,32 @@
   "services": { "heading": "Our Packages", "subheading": "Complete wedding packages under one roof" },
   "gallery": { "heading": "Gallery", "subheading": "Moments from Qasr Al-Farah", "filters": { "all": "All", "hall": "Hall", "decoration": "Decoration", "food": "Hospitality", "events": "Celebration Moments", "couple": "The Couple" } },
   "contact": { "heading": "Contact us", "subheading": "We're here to help", "labels": { "phone": "Phone", "whatsapp": "WhatsApp", "address": "Address", "hours": "Hours", "directions": "Directions" }, "address": "Amman, Jordan", "hours": "Daily 10am – 10pm" },
+  "booking": {
+    "title": "Book a Visit",
+    "chooseDate": "Choose a suitable date",
+    "chooseTime": "Choose a visit time",
+    "selectDateFirst": "Select a date to see the available times",
+    "continue": "Continue",
+    "back": "Back to calendar",
+    "disclaimer": "This is a visit/booking request only. Your reservation is not confirmed until the hall contacts you to confirm the details.",
+    "slotsHeading": "Available times",
+    "detailsTitle": "Your details",
+    "detailsSubtitle": "We will contact you to confirm the details",
+    "summaryDate": "Date",
+    "summaryTime": "Time",
+    "fields": {
+      "name": "Full name",
+      "phone": "Phone number",
+      "groom": "Groom's name",
+      "bride": "Bride's name",
+      "guests": "Expected guests",
+      "notes": "Notes (optional)",
+      "notesPlaceholder": "Anything we should know about your day?"
+    },
+    "submit": "Send booking request",
+    "requiredHint": "Please select a date and a time slot first.",
+    "changeSelection": "Change selection"
+  },
   "seo": {
     "home": { "title": "Luxury Wedding Hall | Home", "description": "Book your luxury wedding hall with full services and a digital memory book." },
     "services": { "title": "Our Packages | Wedding Hall", "description": "Complete wedding packages bundling the hall, zaffa, hospitality, decor, and memories." },

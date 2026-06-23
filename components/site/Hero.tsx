@@ -30,7 +30,7 @@ export default function Hero({ locale }: { locale: Locale }) {
           <p className="hero-editorial-subtitle">{heroContent.subtitle}</p>
 
           <div className="hero-editorial-actions">
-            <Link href="/contact" className="hero-editorial-primary">
+            <Link href="/booking" className="hero-editorial-primary">
               <CalendarCheck aria-hidden="true" className="size-4" />
               <span>{heroContent.ctaBook}</span>
             </Link>

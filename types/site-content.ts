@@ -82,6 +82,32 @@ export interface SiteContent {
   };
   services: { heading: string; subheading: string };
   gallery: { heading: string; subheading: string; filters: Record<GalleryCategory | "all", string> };
+  booking: {
+    title: string;
+    chooseDate: string;
+    chooseTime: string;
+    selectDateFirst: string;
+    continue: string;
+    back: string;
+    disclaimer: string;
+    slotsHeading: string;
+    detailsTitle: string;
+    detailsSubtitle: string;
+    summaryDate: string;
+    summaryTime: string;
+    fields: {
+      name: string;
+      phone: string;
+      groom: string;
+      bride: string;
+      guests: string;
+      notes: string;
+      notesPlaceholder: string;
+    };
+    submit: string;
+    requiredHint: string;
+    changeSelection: string;
+  };
   contact: {
     heading: string; subheading: string;
     labels: { phone: string; whatsapp: string; address: string; hours: string; directions: string };
