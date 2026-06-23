@@ -138,6 +138,7 @@ export default async function PublicFooter() {
                 { href: "/", label: content.nav.home },
                 { href: "/services", label: content.nav.services },
                 { href: "/gallery", label: content.nav.gallery },
+                { href: "/what-awaits-you", label: content.nav.whatAwaits },
                 { href: "/contact", label: content.nav.contact },
               ].map(({ href, label }) => (
                 <Link

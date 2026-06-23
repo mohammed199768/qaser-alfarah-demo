@@ -1,5 +1,5 @@
 {
-  "nav": { "home": "Home", "services": "Our Packages", "gallery": "Gallery", "contact": "Contact", "book": "Book Now" },
+  "nav": { "home": "Home", "services": "Our Packages", "gallery": "Gallery", "contact": "Contact", "book": "Book Now", "whatAwaits": "What Awaits You" },
   "footer": { "blurb": "An elegant wedding hall where refined detail meets heartfelt celebration — for moments that last forever.", "rightsLine": "All rights reserved", "poweredBy": "Powered by" },
   "home": {
     "hero": { "title": "Where the most beautiful moments begin", "subtitle": "A luxury hall, full-service planning, and digital memories that last.", "ctaBook": "Book your date", "ctaGallery": "View gallery" },
@@ -18,6 +18,7 @@
   },
   "services": { "heading": "Our Packages", "subheading": "Complete wedding packages under one roof" },
   "gallery": { "heading": "Gallery", "subheading": "Moments from Qasr Al-Farah", "filters": { "all": "All", "hall": "Hall", "decoration": "Decoration", "food": "Hospitality", "events": "Celebration Moments", "couple": "The Couple" } },
+  "whatAwaits": { "title": "What Awaits You", "subtitle": "Browse the experience booklets as if they were in your hands" },
   "contact": { "heading": "Contact us", "subheading": "We're here to help", "labels": { "phone": "Phone", "whatsapp": "WhatsApp", "address": "Address", "hours": "Hours", "directions": "Directions" }, "address": "Amman, Jordan", "hours": "Daily 10am – 10pm" },
   "booking": {
     "title": "Book a Visit",

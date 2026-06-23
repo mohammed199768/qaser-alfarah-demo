@@ -4,6 +4,7 @@ import {
   Home,
   Image as ImageIcon,
   ListChecks,
+  BookOpen,
   Phone,
   type LucideIcon,
 } from "lucide-react";
@@ -95,6 +96,7 @@ export default async function PublicHeader() {
     { href: "/", label: content.nav.home, Icon: Home },
     { href: "/services", label: content.nav.services, Icon: ListChecks },
     { href: "/gallery", label: content.nav.gallery, Icon: ImageIcon },
+    { href: "/what-awaits-you", label: content.nav.whatAwaits, Icon: BookOpen },
     { href: "/contact", label: content.nav.contact, Icon: Phone },
   ];
 

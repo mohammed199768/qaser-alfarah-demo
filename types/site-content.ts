@@ -68,7 +68,7 @@ export interface GalleryCollection {
 export interface PageSeo { title: string; description: string; }
 
 export interface SiteContent {
-  nav: { home: string; services: string; gallery: string; contact: string; book: string };
+  nav: { home: string; services: string; gallery: string; contact: string; book: string; whatAwaits: string };
   footer: { blurb: string; rightsLine: string; poweredBy?: string };
   home: {
     hero: { title: string; subtitle: string; ctaBook: string; ctaGallery: string };
@@ -121,6 +121,7 @@ export interface SiteContent {
       error: string;
     };
   };
+  whatAwaits: { title: string; subtitle: string };
   contact: {
     heading: string; subheading: string;
     labels: { phone: string; whatsapp: string; address: string; hours: string; directions: string };
