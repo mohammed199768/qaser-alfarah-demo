@@ -343,7 +343,7 @@ function ServiceBookPage({
 }) {
   const world = bookWorlds[service.id] ?? fallbackWorld;
   const imageSrc = service.image ?? serviceFallbackImages[service.id] ?? "/site/hero.jpg";
-  const ctaHref = "/contact";
+  const ctaHref = service.cta?.href ?? "/contact";
   const ctaLabel = service.cta
     ? localize(service.cta.label, locale)
     : localize(copy.defaultServiceCta, locale);
@@ -372,7 +372,7 @@ function ServiceBookPage({
             className="inline-flex size-8 items-center justify-center rounded-full border"
             style={{ borderColor: alpha(world.accent, 0.35), color: world.accent }}
           >
-            <Icon name={service.icon ?? "Sparkles"} className="size-4" />
+            <Icon name={service.icon ?? "Heart"} className="size-4" />
           </span>
         </div>
 
@@ -502,7 +502,7 @@ function CtaBookPage({ locale }: { locale: Locale }) {
         </p>
         <div className="mt-2 flex flex-col gap-3">
           <Link
-            href="/contact"
+            href="/booking"
             className="inline-flex h-11 items-center justify-center gap-2 rounded-full px-7 text-sm font-bold transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             style={{
               background: "linear-gradient(135deg, oklch(0.82 0.10 82) 0%, oklch(0.70 0.12 76) 100%)",

@@ -13,7 +13,7 @@ export const services: ServiceItem[] = [
       en: "A refined hall with guest seating, reception flow, and lighting suited for weddings, engagements, and elegant family celebrations.",
     },
     priceHint: { ar: "زيارة القاعة متاحة", en: "Hall visits available" },
-    cta: { href: "/contact", label: { ar: "احجز موعدك", en: "Book a visit" } },
+    cta: { href: "/booking", label: { ar: "احجز موعدك", en: "Book a visit" } },
   },
   {
     id: "zaffa",

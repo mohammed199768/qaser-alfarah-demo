@@ -8,7 +8,6 @@ import {
   CalendarCheck,
   Check,
   MessageCircle,
-  Sparkles,
 } from "lucide-react";
 import type { Locale } from "@/lib/i18n";
 
@@ -348,7 +347,6 @@ function CoverScene({
           className="inline-flex items-center gap-2 text-[0.66rem] font-bold uppercase tracking-[0.3em]"
           style={{ color: "oklch(0.84 0.10 82)" }}
         >
-          <Sparkles className="size-3.5" aria-hidden="true" />
           {brandName}
         </span>
         <span
@@ -383,7 +381,7 @@ function CoverScene({
 
         <div data-book-stagger="" className="mt-3 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row">
           <Link
-            href="/contact"
+            href="/booking"
             className="inline-flex h-12 items-center justify-center gap-2 rounded-full px-8 text-sm font-bold transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
             style={{
               background: "linear-gradient(135deg, oklch(0.84 0.10 82) 0%, oklch(0.70 0.12 76) 100%)",
@@ -499,7 +497,6 @@ function PackageScene({
                     boxShadow: "0 10px 26px oklch(0.74 0.12 76 / 0.32)",
                   }}
                 >
-                  <Sparkles className="size-3.5" aria-hidden="true" />
                   {localize(copy.popularBadge, locale)}
                 </span>
               )}
@@ -596,7 +593,7 @@ function PackageScene({
 
             <div data-book-stagger="" className="mt-8">
               <Link
-                href="/contact"
+                href="/booking"
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-full px-7 text-sm font-bold transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[oklch(0.76_0.10_82)] focus-visible:ring-offset-2"
                 style={{
                   background: "linear-gradient(135deg, oklch(0.84 0.10 82) 0%, oklch(0.70 0.12 76) 100%)",
@@ -769,7 +766,7 @@ function FinalScene({ copy, locale }: { copy: BookCopy; locale: Locale }) {
 
         <div data-book-stagger="" className="mt-9 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row">
           <Link
-            href="/contact"
+            href="/booking"
             className="inline-flex h-12 items-center justify-center gap-2 rounded-full px-8 text-sm font-bold transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2"
             style={{ background: "oklch(0.98 0.006 84)", color: "oklch(0.28 0.02 58)" }}
           >

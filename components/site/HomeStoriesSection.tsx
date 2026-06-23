@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { BookOpen, Sparkles, X } from "lucide-react";
+import { BookOpen, X } from "lucide-react";
 import type { Locale } from "@/lib/i18n";
 
 const WeddingFlipBook = dynamic(() => import("@/components/site/WeddingFlipBook"), {
@@ -96,7 +96,6 @@ export default function HomeStoriesSection({ locale }: { locale: Locale }) {
       <div className="wedding-book-section-inner">
         <div className="wedding-book-intro">
           <p className="wedding-book-eyebrow">
-            <Sparkles aria-hidden="true" />
             {copy.eyebrow}
           </p>
           <h2>{copy.heading}</h2>

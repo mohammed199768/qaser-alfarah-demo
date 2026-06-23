@@ -68,7 +68,7 @@ export default async function GalleryPage() {
       <CtaBand 
         locale={locale} 
         title={locale === "ar" ? "أعجبتك الأجواء؟" : "Love what you see?"}
-        primaryCta={{ label: content.nav.book, href: "/contact" }}
+        primaryCta={{ label: content.nav.book, href: "/booking" }}
         secondaryCta={{ label: content.nav.contact, href: "/contact" }}
       />
     </div>

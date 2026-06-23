@@ -1,13 +1,13 @@
 import {
-  Sparkles, BookHeart, Plus, QrCode, Camera, Utensils, Car, Music, Flower2,
+  BookHeart, Plus, QrCode, Camera, Utensils, Car, Music, Flower2,
   MapPin, Phone, MessageCircle, Heart, CalendarDays, Image as ImageIcon, Lightbulb,
   Building2, UtensilsCrossed, Mic2, Mail, Instagram, Facebook
 } from "lucide-react";
 
-export type IconName = "Sparkles" | "BookHeart" | "Plus" | "QrCode" | "Camera" | "Utensils" | "Car" | "Music" | "Flower2" | "MapPin" | "Phone" | "MessageCircle" | "Heart" | "CalendarDays" | "Image" | "Lightbulb" | "Building2" | "UtensilsCrossed" | "Mic2" | "Mail" | "Instagram" | "Facebook";
+export type IconName = "BookHeart" | "Plus" | "QrCode" | "Camera" | "Utensils" | "Car" | "Music" | "Flower2" | "MapPin" | "Phone" | "MessageCircle" | "Heart" | "CalendarDays" | "Image" | "Lightbulb" | "Building2" | "UtensilsCrossed" | "Mic2" | "Mail" | "Instagram" | "Facebook";
 
 const iconMap: Record<string, React.ElementType> = {
-  Sparkles, BookHeart, Plus, QrCode, Camera, Utensils, Car, Music, Flower2,
+  BookHeart, Plus, QrCode, Camera, Utensils, Car, Music, Flower2,
   MapPin, Phone, MessageCircle, Heart, CalendarDays, Image: ImageIcon, Lightbulb,
   Building2, UtensilsCrossed, Mic2, Mail, Instagram, Facebook
 };

@@ -48,7 +48,7 @@ export default function ServiceCard({ item, locale }: { item: ServiceItem; local
             }}
           >
             <Icon
-              name={item.icon ?? "Sparkles"}
+              name={item.icon ?? "Heart"}
               className="size-6 text-brand-primary transition-all duration-500 group-hover:text-brand-primary"
             />
           </div>

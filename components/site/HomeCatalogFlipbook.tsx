@@ -329,7 +329,7 @@ function StaticCatalog({ locale }: { locale: Locale }) {
             {ctaCopy?.body}
           </p>
           <Link
-            href="/contact"
+            href="/booking"
             id="catalog-cta-static"
             className="group/btn relative inline-flex h-12 items-center gap-2.5 overflow-hidden rounded-full px-8 text-sm font-bold tracking-wide transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[oklch(0.76_0.10_82)] focus-visible:ring-offset-2"
             style={{

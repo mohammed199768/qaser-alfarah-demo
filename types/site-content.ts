@@ -33,7 +33,7 @@ export interface ServiceItem {
   name: Localized;
   description: Localized;
   priceHint?: Localized;
-  cta?: { href: "/contact"; label: Localized };
+  cta?: { href: "/contact" | "/booking"; label: Localized };
   featured?: boolean;
   order: number;
 }

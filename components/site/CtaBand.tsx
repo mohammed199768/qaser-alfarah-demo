@@ -21,7 +21,7 @@ export default function CtaBand({
   const defaultCta = content.home.finalCta;
 
   const heading = title || defaultCta.heading;
-  const pCta = primaryCta || { label: defaultCta.cta, href: "/contact" };
+  const pCta = primaryCta || { label: defaultCta.cta, href: "/booking" };
 
   return (
     <div
@@ -79,7 +79,7 @@ export default function CtaBand({
         aria-hidden="true"
       />
 
-      {/* Floating petal sparkles */}
+      {/* Floating petal particles */}
       {[
         { top: "12%", left: "8%", size: 5, delay: "0s", dur: "8s" },
         { top: "72%", left: "5%", size: 3, delay: "2s", dur: "10s" },

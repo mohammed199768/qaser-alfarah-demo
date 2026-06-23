@@ -5,7 +5,7 @@
     "hero": { "title": "Where the most beautiful moments begin", "subtitle": "A luxury hall, full-service planning, and digital memories that last.", "ctaBook": "Book your date", "ctaGallery": "View gallery" },
     "intro": { "heading": "Welcome to Qasr Al-Farah", "body": "We believe every moment of your wedding deserves to be perfect. Our elegant hall, attentive team, and seamless services come together to create a day you will carry in your heart forever." },
     "highlights": [
-      { "icon": "Sparkles", "title": "Luxury hall", "text": "A refined, spacious venue thoughtfully designed to host your guests in comfort and style." },
+      { "icon": "Heart", "title": "Luxury hall", "text": "A refined, spacious venue thoughtfully designed to host your guests in comfort and style." },
       { "icon": "BookHeart", "title": "Digital memory book", "text": "Guests share their wishes and photos in a keepsake digital book that lasts a lifetime." },
       { "icon": "Plus", "title": "Flexible add-ons", "text": "Zaffa, professional photography, theatrical lighting, and bespoke décor — curated for you." },
       { "icon": "QrCode", "title": "Guest QR memories", "text": "Guests scan a QR code to contribute their moments directly from the hall in real time." }

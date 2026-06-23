@@ -22,7 +22,7 @@ export default async function PreviewPage() {
         </p>
         <div className="flex items-center justify-center gap-4 pt-4">
           <Button asChild variant="brand" size="lg">
-            <Link href="/contact">{content.nav.book}</Link>
+            <Link href="/booking">{content.nav.book}</Link>
           </Button>
         </div>
       </Container>
