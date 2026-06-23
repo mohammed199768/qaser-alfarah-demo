@@ -21,6 +21,8 @@
   "contact": { "heading": "Contact us", "subheading": "We're here to help", "labels": { "phone": "Phone", "whatsapp": "WhatsApp", "address": "Address", "hours": "Hours", "directions": "Directions" }, "address": "Amman, Jordan", "hours": "Daily 10am – 10pm" },
   "booking": {
     "title": "Book a Visit",
+    "heroTitle": "Book a Visit",
+    "heroSubtitle": "Choose the suitable date and time, and we will contact you to confirm the details.",
     "chooseDate": "Choose a suitable date",
     "chooseTime": "Choose a visit time",
     "selectDateFirst": "Select a date to see the available times",

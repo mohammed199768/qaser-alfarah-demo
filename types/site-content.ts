@@ -84,6 +84,8 @@ export interface SiteContent {
   gallery: { heading: string; subheading: string; filters: Record<GalleryCategory | "all", string> };
   booking: {
     title: string;
+    heroTitle: string;
+    heroSubtitle: string;
     chooseDate: string;
     chooseTime: string;
     selectDateFirst: string;
