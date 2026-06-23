@@ -43,7 +43,18 @@
     },
     "submit": "Send booking request",
     "requiredHint": "Please select a date and a time slot first.",
-    "changeSelection": "Change selection"
+    "changeSelection": "Change selection",
+    "widget": {
+      "today": "Today",
+      "currentTime": "Current Time",
+      "weatherTitle": "Amman Weather",
+      "temperature": "Temperature",
+      "humidity": "Humidity",
+      "wind": "Wind",
+      "feelsLike": "Feels like",
+      "loading": "Loading weather…",
+      "error": "Weather unavailable right now"
+    }
   },
   "seo": {
     "home": { "title": "Luxury Wedding Hall | Home", "description": "Book your luxury wedding hall with full services and a digital memory book." },

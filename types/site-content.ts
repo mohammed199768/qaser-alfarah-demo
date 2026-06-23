@@ -107,6 +107,17 @@ export interface SiteContent {
     submit: string;
     requiredHint: string;
     changeSelection: string;
+    widget: {
+      today: string;
+      currentTime: string;
+      weatherTitle: string;
+      temperature: string;
+      humidity: string;
+      wind: string;
+      feelsLike: string;
+      loading: string;
+      error: string;
+    };
   };
   contact: {
     heading: string; subheading: string;
