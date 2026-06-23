@@ -10,7 +10,7 @@ import {
   type ReactNode,
   type RefAttributes,
 } from "react";
-import { ArrowLeft, ArrowRight, X, PenLine } from "lucide-react";
+import { ArrowLeft, ArrowRight, X, PenLine, Download } from "lucide-react";
 import HTMLFlipBookSource from "@/react-pageflip-master/src";
 import type { Locale } from "@/lib/i18n";
 import type { Booklet } from "@/content/site/booklets";
@@ -67,6 +67,9 @@ const COPY = {
     loading: "جارٍ تحضير الدفتر…",
     rendering: "جارٍ تجهيز الصفحات",
     error: "تعذّر فتح هذا الملف حالياً. يرجى المحاولة لاحقاً.",
+    tabletError: "تعذر فتح الدفتر على هذا الجهاز. جرّب فتحه على جهاز أقوى أو حمّل ملف PDF.",
+    openPdf: "فتح ملف PDF",
+    lightMode: "وضع القراءة الخفيف",
     writeNote: "اكتب ملاحظة",
     hint: "اسحب طرف الصفحة أو استخدم الأسهم",
   },
@@ -79,6 +82,9 @@ const COPY = {
     loading: "Preparing the booklet…",
     rendering: "Rendering pages",
     error: "This file could not be opened right now. Please try again later.",
+    tabletError: "This device could not open the booklet. Try a stronger device or download the PDF.",
+    openPdf: "Open PDF",
+    lightMode: "Light reading mode",
     writeNote: "Write a Note",
     hint: "Drag a page corner or use the arrows",
   },
@@ -86,13 +92,15 @@ const COPY = {
 
 /** Hard cap so very large PDFs stay responsive in a demo. */
 const MAX_PAGES = 24;
-/** Render scale — balances sharpness vs. memory. */
-const RENDER_SCALE = 1.4;
+/** Render scale for desktop (full flipbook). */
+const DESKTOP_RENDER_SCALE = 1.4;
+/** Render scale for light mode (mobile/tablet). */
+const LIGHT_RENDER_SCALE = 1.25;
 
 type RenderState =
   | { status: "loading"; done: number; total: number }
   | { status: "error"; message?: string }
-  | { status: "ready"; pages: string[] };
+  | { status: "ready"; pages: string[]; total: number };
 
 interface PdfFlipbookViewerProps {
   booklet: Booklet;
@@ -107,7 +115,6 @@ const PageSheet = forwardRef<
 >(function PageSheet({ src, pageNumber, alt }, ref) {
   return (
     <div ref={ref} className="pdf-flip-sheet" data-density="soft">
-      {/* PDF pages are rendered client-side to data URLs in memory. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={src} alt={`${alt} — ${pageNumber}`} draggable={false} />
     </div>
@@ -129,17 +136,15 @@ export default function PdfFlipbookViewer({
     total: 0,
   });
   const [pageIndex, setPageIndex] = useState(0);
-  const [isNarrow, setIsNarrow] = useState(false);
   const [noteOpen, setNoteOpen] = useState(false);
   const bookRef = useRef<FlipHandle>(null);
 
-  // Track narrow viewports → single-page fallback (more stable than pageflip on phones).
+  // Device detection for Light Reader mode
+  const [isLightMode, setIsLightMode] = useState<boolean | null>(null);
   useEffect(() => {
-    const mq = window.matchMedia("(max-width: 640px)");
-    const apply = () => setIsNarrow(mq.matches);
-    apply();
-    mq.addEventListener("change", apply);
-    return () => mq.removeEventListener("change", apply);
+    const mem = (navigator as any).deviceMemory;
+    const isLowMem = mem && mem <= 4;
+    setIsLightMode(window.innerWidth < 1024 || isLowMem);
   }, []);
 
   const onCloseRef = useRef(onClose);
@@ -161,8 +166,13 @@ export default function PdfFlipbookViewer({
     };
   }, []);
 
-  // Load + render the selected PDF (client-only, on mount of this viewer).
+  const pdfDocRef = useRef<any>(null);
+  const [lightPages, setLightPages] = useState<Record<number, string>>({});
+
+  // 1. Load PDF & Desktop render loop
   useEffect(() => {
+    if (isLightMode === null) return;
+
     let cancelled = false;
     let currentRenderTask: any = null;
     let pdfTask: any = null;
@@ -171,67 +181,66 @@ export default function PdfFlipbookViewer({
     (async () => {
       try {
         const pdfjs = await import("pdfjs-dist");
-        // Use the stable public worker path instead of a dynamic bundler URL.
         pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
 
         pdfTask = pdfjs.getDocument({ url: booklet.pdfUrl });
         const doc = await pdfTask.promise;
         if (cancelled) {
-          try { void pdfTask.destroy(); } catch {}
+          try { void doc.destroy(); } catch {}
           return;
         }
 
+        pdfDocRef.current = doc;
         const total = Math.min(doc.numPages, MAX_PAGES);
-        setRender({ status: "loading", done: 0, total });
 
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d", { alpha: false });
-        if (!ctx) throw new Error("Canvas unavailable");
+        if (isLightMode) {
+          // LIGHT MODE: Do not render everything. Just mark as ready.
+          setRender({ status: "ready", pages: [], total });
+          setPageIndex(0);
+        } else {
+          // DESKTOP MODE: Render all upfront for flipbook
+          setRender({ status: "loading", done: 0, total });
 
-        for (let n = 1; n <= total; n++) {
-          if (cancelled) break;
-          const page = await doc.getPage(n);
-          const viewport = page.getViewport({ scale: RENDER_SCALE });
-          canvas.width = Math.ceil(viewport.width);
-          canvas.height = Math.ceil(viewport.height);
-          
-          ctx.fillStyle = "white";
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d", { alpha: false });
+          if (!ctx) throw new Error("Canvas unavailable");
 
-          currentRenderTask = page.render({ canvas, canvasContext: ctx, viewport });
-          await currentRenderTask.promise;
-          currentRenderTask = null;
-          
-          urls.push(canvas.toDataURL("image/jpeg", 0.82));
-          page.cleanup();
-          
-          if (!cancelled) {
-            setRender({ status: "loading", done: n, total });
+          for (let n = 1; n <= total; n++) {
+            if (cancelled) break;
+            const page = await doc.getPage(n);
+            const viewport = page.getViewport({ scale: DESKTOP_RENDER_SCALE });
+            canvas.width = Math.ceil(viewport.width);
+            canvas.height = Math.ceil(viewport.height);
+            
+            ctx.fillStyle = "white";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            currentRenderTask = page.render({ canvas, canvasContext: ctx, viewport });
+            await currentRenderTask.promise;
+            currentRenderTask = null;
+            
+            urls.push(canvas.toDataURL("image/jpeg", 0.82));
+            page.cleanup();
+            
+            if (!cancelled) {
+              setRender({ status: "loading", done: n, total });
+            }
           }
-        }
 
-        try { void pdfTask.destroy(); } catch {}
-        pdfTask = null;
-
-        if (!cancelled) {
-          // Preload images so they are fully decoded before the flipbook mounts.
-          // This avoids the pdfjs-dist "Dependent image isn't ready yet" warnings
-          // caused by flipbook mounting too early or images not ready.
-          await Promise.all(
-            urls.map(
-              (url) =>
-                new Promise((resolve) => {
-                  const img = new Image();
-                  img.onload = resolve;
-                  img.onerror = resolve;
-                  img.src = url;
-                })
-            )
-          );
-        }
-
-        if (!cancelled) {
-          setRender({ status: "ready", pages: urls });
+          if (!cancelled) {
+            await Promise.all(
+              urls.map(
+                (url) =>
+                  new Promise((resolve) => {
+                    const img = new Image();
+                    img.onload = resolve;
+                    img.onerror = resolve;
+                    img.src = url;
+                  })
+              )
+            );
+            setRender({ status: "ready", pages: urls, total });
+          }
         }
       } catch (err) {
         if (!cancelled && (err as Error)?.name !== "RenderingCancelledException") {
@@ -249,28 +258,91 @@ export default function PdfFlipbookViewer({
       if (pdfTask) {
         try { void pdfTask.destroy(); } catch {}
       }
+      if (pdfDocRef.current) {
+        try { void pdfDocRef.current.destroy(); } catch {}
+        pdfDocRef.current = null;
+      }
     };
-  }, [booklet.pdfUrl]);
+  }, [booklet.pdfUrl, isLightMode]);
+
+  // 2. Light Mode lazy render loop
+  useEffect(() => {
+    if (!isLightMode || render.status !== "ready" || !pdfDocRef.current) return;
+    
+    let cancelled = false;
+    let renderTask: any = null;
+
+    const renderPage = async (idx: number) => {
+      if (idx < 0 || idx >= render.total) return;
+      if (lightPages[idx]) return; // already in memory
+
+      try {
+        const doc = pdfDocRef.current;
+        const page = await doc.getPage(idx + 1);
+        const viewport = page.getViewport({ scale: LIGHT_RENDER_SCALE });
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d", { alpha: false });
+        if (!ctx) return;
+        
+        canvas.width = Math.ceil(viewport.width);
+        canvas.height = Math.ceil(viewport.height);
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        renderTask = page.render({ canvas, canvasContext: ctx, viewport });
+        await renderTask.promise;
+        renderTask = null;
+        
+        const url = canvas.toDataURL("image/jpeg", 0.82);
+        page.cleanup();
+        
+        if (!cancelled) {
+          setLightPages((prev) => {
+             const nextState: Record<number, string> = { [idx]: url };
+             // Keep only adjacent pages to save memory
+             if (prev[idx - 1]) nextState[idx - 1] = prev[idx - 1]!;
+             if (prev[idx + 1]) nextState[idx + 1] = prev[idx + 1]!;
+             return nextState;
+          });
+        }
+      } catch (err) {
+        if (!cancelled && (err as Error)?.name !== "RenderingCancelledException") {
+          console.error(`Page ${idx+1} render error:`, err);
+        }
+      }
+    };
+
+    renderPage(pageIndex).then(() => {
+      if (!cancelled) renderPage(pageIndex + 1);
+    });
+
+    return () => {
+      cancelled = true;
+      if (renderTask) {
+        try { renderTask.cancel(); } catch {}
+      }
+    };
+  }, [pageIndex, isLightMode, render.status, lightPages, "total" in render ? render.total : 0]);
 
   const onFlip = useCallback((e: FlipEvent) => setPageIndex(e.data), []);
 
-  const pages = render.status === "ready" ? render.pages : [];
-  const total = pages.length;
+  const pages = render.status === "ready" && !isLightMode ? render.pages : [];
+  const total = render.status === "ready" ? render.total : 0;
 
   const previous = () => {
-    if (isNarrow) setPageIndex((i) => Math.max(0, i - 1));
+    if (isLightMode) setPageIndex((i) => Math.max(0, i - 1));
     else bookRef.current?.pageFlip()?.flipPrev("top");
   };
   const next = () => {
-    if (isNarrow) setPageIndex((i) => Math.min(total - 1, i + 1));
+    if (isLightMode) setPageIndex((i) => Math.min(total - 1, i + 1));
     else bookRef.current?.pageFlip()?.flipNext("top");
   };
 
   const title = booklet.title[locale];
-  const currentPageSrc = pages[pageIndex];
+  const currentPageSrc = isLightMode ? lightPages[pageIndex] : pages[pageIndex];
 
   let displayPageText = "";
-  if (isNarrow || pageIndex === 0) {
+  if (isLightMode || pageIndex === 0) {
     displayPageText = `${pageIndex + 1}`;
   } else if (pageIndex + 1 === total) {
     displayPageText = `${total}`;
@@ -298,14 +370,22 @@ export default function PdfFlipbookViewer({
         >
           {title}
         </h2>
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label={copy.close}
-          className="flex size-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/8 text-white/75 transition-colors hover:bg-white/15 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
-        >
-          <X className="size-5" aria-hidden="true" />
-        </button>
+        <div className="flex items-center gap-3">
+          {isLightMode && render.status === "ready" && (
+            <span className="rounded-full px-2 py-0.5 text-[10px] sm:px-3 sm:py-1 font-medium tracking-wide shadow-sm"
+                  style={{ background: "oklch(0.2 0.02 60 / 0.6)", color: "oklch(0.8 0.02 60)", border: "1px solid oklch(0.4 0.02 60)" }}>
+              {copy.lightMode}
+            </span>
+          )}
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label={copy.close}
+            className="flex size-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/8 text-white/75 transition-colors hover:bg-white/15 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+          >
+            <X className="size-5" aria-hidden="true" />
+          </button>
+        </div>
       </div>
 
       {/* Stage */}
@@ -318,7 +398,7 @@ export default function PdfFlipbookViewer({
               aria-hidden="true"
             />
             <p className="text-sm">{copy.loading}</p>
-            {render.total > 0 && (
+            {"total" in render && render.total > 0 && !isLightMode && (
               <p className="text-xs opacity-70" aria-live="polite">
                 {copy.rendering}: {render.done} / {render.total}
               </p>
@@ -328,36 +408,58 @@ export default function PdfFlipbookViewer({
 
         {render.status === "error" && (
           <div
-            className="mx-auto max-w-sm rounded-2xl border p-6 text-center text-sm"
+            className="mx-auto flex max-w-sm flex-col gap-4 rounded-2xl border p-6 text-center text-sm"
             style={{
               borderColor: "oklch(0.70 0.06 40 / 0.4)",
               background: "oklch(0.60 0.06 40 / 0.12)",
               color: "oklch(0.9 0.04 60)",
             }}
           >
-            <p>{copy.error}</p>
+            <p>{isLightMode ? copy.tabletError : copy.error}</p>
+            {isLightMode && (
+              <a
+                href={booklet.pdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-10 items-center justify-center rounded-lg font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                style={{
+                  background: "oklch(0.9 0.04 60 / 0.1)",
+                  border: "1px solid oklch(0.9 0.04 60 / 0.2)",
+                  color: "oklch(0.95 0.02 70)"
+                }}
+              >
+                <Download className="me-2 size-4" aria-hidden="true" />
+                {copy.openPdf}
+              </a>
+            )}
             {process.env.NODE_ENV !== "production" && render.message && (
-              <p className="mt-3 text-xs opacity-70 break-words">{render.message}</p>
+              <p className="mt-1 text-xs opacity-70 break-words">{render.message}</p>
             )}
           </div>
         )}
 
         {render.status === "ready" && total > 0 && (
           <>
-            {isNarrow ? (
-              // Mobile: stable single-page viewer (no pageflip).
-              <div className="flex h-full w-full max-w-md items-center justify-center">
-                {currentPageSrc && (
+            {isLightMode ? (
+              // Tablet/Mobile: Light Reader
+              <div className="flex h-full w-full max-w-2xl items-center justify-center relative">
+                {lightPages[pageIndex] ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
-                    src={currentPageSrc}
+                    key={pageIndex}
+                    src={lightPages[pageIndex]}
                     alt={`${title} — ${pageIndex + 1}`}
-                    className="max-h-full max-w-full rounded-lg object-contain shadow-2xl"
+                    className="max-h-full max-w-full rounded-lg object-contain shadow-2xl animate-in fade-in duration-300"
                     draggable={false}
                   />
+                ) : (
+                  <div className="flex flex-col items-center gap-3" style={{ color: "oklch(0.86 0.04 82)" }}>
+                    <span className="size-8 animate-spin rounded-full border-2 border-white/20" style={{ borderTopColor: "oklch(0.84 0.10 82)" }} />
+                  </div>
                 )}
               </div>
             ) : (
+              // Desktop: Full Flipbook
               <div className="pdf-flip-stage w-full h-full max-w-[1000px] mx-auto">
                 <HTMLFlipBook
                   ref={bookRef}
@@ -422,7 +524,7 @@ export default function PdfFlipbookViewer({
           <button
             type="button"
             onClick={next}
-            disabled={pageIndex >= total - (isNarrow ? 1 : 2)}
+            disabled={pageIndex >= total - (isLightMode ? 1 : 2)}
             aria-label={copy.next}
             className="flex size-11 items-center justify-center rounded-full border border-white/15 bg-white/8 text-white/75 transition-colors hover:bg-white/15 hover:text-white disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
           >
@@ -446,7 +548,7 @@ export default function PdfFlipbookViewer({
         </div>
       )}
 
-      {noteOpen && (
+      {noteOpen && currentPageSrc && (
         <NoteDrawModal
           locale={locale}
           backgroundSrc={currentPageSrc}
