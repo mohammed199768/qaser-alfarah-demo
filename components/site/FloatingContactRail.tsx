@@ -6,45 +6,9 @@ const AMMAN_MAPS_FALLBACK =
 
 const QUICK_LINK_ARIA_LABEL = "روابط التواصل السريعة";
 
-type FloatingLink = {
-  id: "whatsapp" | "maps" | "instagram" | "facebook";
-  href: string;
-  label: string;
-  icon: string;
-};
+import { contactLinks } from "@/content/site/socialLinks";
 
 export default function FloatingContactRail() {
-  const config = getSiteConfig();
-
-  // TODO(final-link-review): replace placeholder-like social handles and the
-  // generic Amman maps search with verified production venue links.
-  const links: FloatingLink[] = [
-    {
-      id: "whatsapp",
-      href: `https://wa.me/${config.whatsappNumber}`,
-      label: "تواصل عبر واتساب",
-      icon: "MessageCircle",
-    },
-    {
-      id: "maps",
-      href: AMMAN_MAPS_FALLBACK,
-      label: "افتح الموقع على خرائط جوجل",
-      icon: "MapPin",
-    },
-    {
-      id: "instagram",
-      href: config.social.instagram ?? "https://www.instagram.com/YOUR_PAGE",
-      label: "افتح إنستغرام",
-      icon: "Instagram",
-    },
-    {
-      id: "facebook",
-      href: config.social.facebook ?? "https://www.facebook.com/YOUR_PAGE",
-      label: "افتح فيسبوك",
-      icon: "Facebook",
-    },
-  ];
-
   return (
     <nav
       aria-label={QUICK_LINK_ARIA_LABEL}
@@ -58,14 +22,14 @@ export default function FloatingContactRail() {
           borderColor: "var(--brand-border)",
         }}
       >
-        {links.map((link) => (
+        {contactLinks.map((link) => (
           <a
             key={link.id}
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={link.label}
-            title={link.label}
+            aria-label={link.labelAr}
+            title={link.labelAr}
             className="group flex size-10 shrink-0 items-center justify-center rounded-full border text-brand-muted-fg transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-primary/50 hover:text-brand-primary hover:shadow-[0_10px_24px_oklch(0.76_0.10_82_/_24%)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 focus-visible:ring-offset-brand-bg sm:size-11 lg:size-12"
             style={{
               background:

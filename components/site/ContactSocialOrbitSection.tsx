@@ -1,6 +1,6 @@
 "use client";
 
-import { socialOrbitLinks, type SocialOrbitLink } from "@/content/site/socialLinks";
+import { contactLinks, type ContactLink } from "@/content/site/socialLinks";
 
 // ─── Inline SVG icons (no packages) ──────────────────────────────────────────
 
@@ -29,20 +29,6 @@ function IconFacebook() {
       <path
         d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
         stroke="#1877F2"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function IconPhone() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-6 w-6 sm:h-7 sm:w-7">
-      <path
-        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.32 2 2 0 0 1 3.61 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.59a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
-        stroke="#10b981"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -84,123 +70,64 @@ function IconMaps() {
   );
 }
 
-const ICON_MAP: Record<SocialOrbitLink["id"], React.ReactNode> = {
+const ICON_MAP: Record<ContactLink["id"], React.ReactNode> = {
   instagram: <IconInstagram />,
   facebook:  <IconFacebook />,
-  phone:     <IconPhone />,
   whatsapp:  <IconWhatsApp />,
   maps:      <IconMaps />,
 };
 
-// ─── Shared disabled styles ───────────────────────────────────────────────────
-
-const disabledIconStyle: React.CSSProperties = {
-  background: "oklch(0.95 0.004 80)",
-  border: "1.5px solid oklch(0.88 0.008 80 / 55%)",
-  opacity: 0.55,
-};
-
-const disabledLabelStyle: React.CSSProperties = {
-  color: "oklch(0.68 0.010 65)",
-};
-
 // ─── Orbit positions ──────────────────────────────────────────────────────────
 
-const ITEM_COUNT = 5;
+const ITEM_COUNT = contactLinks.length;
 const ANGLES = Array.from({ length: ITEM_COUNT }, (_, i) => (360 / ITEM_COUNT) * i);
 
-// ─── Accessible fallback link list ───────────────────────────────────────────
+// ─── Accessible link list ───────────────────────────────────────────
 
-function ContactLinkList({ hasAnyPlaceholder }: { hasAnyPlaceholder: boolean }) {
+function ContactLinkList() {
   return (
     <div className="mt-14 max-w-3xl mx-auto space-y-3">
       <div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
         role="list"
         aria-label="قنوات التواصل"
       >
-        {socialOrbitLinks.map((link) => {
-          if (link.placeholder) {
-            return (
-              <span
-                key={link.id}
-                role="listitem"
-                aria-disabled="true"
-                className="flex items-center gap-4 rounded-2xl px-5 py-4 cursor-not-allowed select-none"
-                style={{
-                  background: "oklch(0.97 0.003 82)",
-                  border: "1px solid oklch(0.90 0.008 80 / 45%)",
-                  opacity: 0.60,
-                }}
-              >
-                <span
-                  className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full"
-                  style={disabledIconStyle}
-                >
-                  {ICON_MAP[link.id]}
-                </span>
-                <div className="flex flex-col gap-0.5">
-                  <span className="text-sm font-semibold" style={disabledLabelStyle}>
-                    {link.labelAr}
-                  </span>
-                  <span
-                    className="text-[0.58rem] font-medium tracking-wide"
-                    style={{ color: "oklch(0.72 0.05 76)" }}
-                  >
-                    قريبًا
-                  </span>
-                </div>
-              </span>
-            );
-          }
-
-          return (
-            <a
-              key={link.id}
-              href={link.href}
-              aria-label={link.ariaLabel}
-              role="listitem"
-              {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              className="group flex items-center gap-4 rounded-2xl px-5 py-4 transition-all duration-300 hover:-translate-y-0.5"
+        {contactLinks.map((link) => (
+          <a
+            key={link.id}
+            href={link.href}
+            aria-label={link.labelEn}
+            role="listitem"
+            {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            className="group flex items-center gap-4 rounded-2xl px-5 py-4 transition-all duration-300 hover:-translate-y-0.5"
+            style={{
+              background: "oklch(0.99 0.005 84)",
+              border: "1px solid oklch(0.88 0.014 82 / 55%)",
+              boxShadow: "0 2px 12px oklch(0.76 0.10 82 / 7%)",
+            }}
+          >
+            <span
+              className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110"
               style={{
-                background: "oklch(0.99 0.005 84)",
-                border: "1px solid oklch(0.88 0.014 82 / 55%)",
-                boxShadow: "0 2px 12px oklch(0.76 0.10 82 / 7%)",
+                background: "oklch(0.97 0.010 83)",
+                border: "1.5px solid oklch(0.85 0.030 80)",
               }}
             >
-              <span
-                className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110"
-                style={{
-                  background: "oklch(0.97 0.010 83)",
-                  border: "1.5px solid oklch(0.85 0.030 80)",
-                }}
-              >
-                {ICON_MAP[link.id]}
-              </span>
-              <span className="text-sm font-semibold" style={{ color: "oklch(0.30 0.025 62)" }}>
-                {link.labelAr}
-              </span>
-              <span
-                className="ms-auto text-xs transition-transform duration-300 group-hover:-translate-x-0.5"
-                style={{ color: "oklch(0.65 0.06 76)" }}
-                aria-hidden="true"
-              >
-                ←
-              </span>
-            </a>
-          );
-        })}
+              {ICON_MAP[link.id]}
+            </span>
+            <span className="text-sm font-semibold" style={{ color: "oklch(0.30 0.025 62)" }}>
+              {link.labelAr}
+            </span>
+            <span
+              className="ms-auto text-xs transition-transform duration-300 group-hover:-translate-x-0.5"
+              style={{ color: "oklch(0.65 0.06 76)" }}
+              aria-hidden="true"
+            >
+              ←
+            </span>
+          </a>
+        ))}
       </div>
-
-      {/* Quiet notice shown only when at least one link is a placeholder */}
-      {hasAnyPlaceholder && (
-        <p
-          className="text-center text-[0.62rem] pt-2"
-          style={{ color: "oklch(0.68 0.04 72)" }}
-        >
-          سيتم تحديث روابط التواصل الرسمية قريبًا
-        </p>
-      )}
     </div>
   );
 }
@@ -208,8 +135,6 @@ function ContactLinkList({ hasAnyPlaceholder }: { hasAnyPlaceholder: boolean }) 
 // ─── Root export ──────────────────────────────────────────────────────────────
 
 export default function ContactSocialOrbitSection() {
-  const hasAnyPlaceholder = socialOrbitLinks.some((l) => l.placeholder);
-
   return (
     <section
       aria-labelledby="contact-orbit-heading"
@@ -280,7 +205,7 @@ export default function ContactSocialOrbitSection() {
           </div>
 
           {/* Orbit items */}
-          {socialOrbitLinks.map((link, index) => {
+          {contactLinks.map((link, index) => {
             const angleDeg = ANGLES[index] ?? (360 / ITEM_COUNT) * index;
             const angleRad = (angleDeg * Math.PI) / 180;
             const radiusPct = 50;
@@ -294,36 +219,11 @@ export default function ContactSocialOrbitSection() {
               animation: "csoCounterSpin 32s linear infinite",
             };
 
-            if (link.placeholder) {
-              return (
-                <span
-                  key={link.id}
-                  aria-disabled="true"
-                  aria-label={`${link.labelAr} — قريبًا`}
-                  className="cso-counter absolute flex flex-col items-center gap-1 cursor-not-allowed"
-                  style={positionStyle}
-                >
-                  <span
-                    className="flex h-12 w-12 items-center justify-center rounded-full sm:h-14 sm:w-14"
-                    style={disabledIconStyle}
-                  >
-                    {ICON_MAP[link.id]}
-                  </span>
-                  <span
-                    className="whitespace-nowrap text-[10px] font-medium sm:text-xs"
-                    style={disabledLabelStyle}
-                  >
-                    {link.labelAr}
-                  </span>
-                </span>
-              );
-            }
-
             return (
               <a
                 key={link.id}
                 href={link.href}
-                aria-label={link.ariaLabel}
+                aria-label={link.labelEn}
                 {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 className="cso-counter absolute flex flex-col items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[oklch(0.76_0.10_82)] focus-visible:ring-offset-2"
                 style={positionStyle}
@@ -350,9 +250,9 @@ export default function ContactSocialOrbitSection() {
         </div>
       </div>
 
-      {/* Accessible fallback link grid */}
+      {/* Accessible link grid */}
       <div className="px-4">
-        <ContactLinkList hasAnyPlaceholder={hasAnyPlaceholder} />
+        <ContactLinkList />
       </div>
 
       {/* Keyframes + reduced-motion */}
